@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { SpinLoader } from 'react-css-loaders';
 import Section from '../../elements/Section';
 import * as api from '../../utils';
 
@@ -15,7 +16,7 @@ export default class Articles extends Component {
     return (
       <Section>
         {loading ? (
-          <p> Loading...</p>
+          <SpinLoader size={5} color="#ccc" />
         ) : (
           articles.map(({ article_id, title }) => (
             <h2 key={article_id}>{title}</h2>
