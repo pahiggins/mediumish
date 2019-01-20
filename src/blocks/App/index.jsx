@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { Person } from 'styled-icons/material';
-import H1 from '../../elements/H1';
-import Header from '../../elements/Header';
+import React, { Component, Fragment } from 'react';
 
-const GreyPerson = styled(Person)`
-  color: #ccc;
-  cursor: pointer;
-`;
+import Header from '../../blocks/Header';
+import Nav from '../../blocks/Nav';
+import Main from '../../elements/Main';
+import Articles from '../../blocks/Articles';
 
 class App extends Component {
   render() {
     return (
-      <Header>
-        <H1>NC News</H1>
-        <GreyPerson size="40" />
-      </Header>
+      <Fragment>
+        <Header />
+        <Nav />
+        <Main>
+          <Articles />
+        </Main>
+      </Fragment>
     );
   }
 }
