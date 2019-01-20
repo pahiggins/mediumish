@@ -3,7 +3,8 @@ import axios from 'axios';
 const BASE_URL = 'https://nc-news-api-pah.herokuapp.com/api';
 
 export const getArticles = () => {
-  return axios.get(`${BASE_URL}/articles`)
+  return axios
+    .get(`${BASE_URL}/articles`)
     .then(res => res.data)
     .catch(res => res);
 };

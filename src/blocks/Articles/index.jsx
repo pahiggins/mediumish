@@ -17,8 +17,10 @@ export default class Articles extends Component {
         {loading ? (
           <p> Loading...</p>
         ) : (
-            articles.map(({ article_id, title }) => <h2 key={article_id}>{title}</h2>)
-          )}
+          articles.map(({ article_id, title }) => (
+            <h2 key={article_id}>{title}</h2>
+          ))
+        )}
       </Section>
     );
   }
@@ -28,8 +30,9 @@ export default class Articles extends Component {
   }
 
   loadArticles = () => {
-    api.getArticles()
+    api
+      .getArticles()
       .then(articles => this.setState({ articles, loading: false }))
       .catch(error => this.setState({ error, loading: false }));
-  }
+  };
 }
