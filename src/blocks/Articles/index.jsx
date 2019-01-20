@@ -10,11 +10,15 @@ export default class Articles extends Component {
   };
 
   render() {
-    const { articles } = this.state;
+    const { articles, loading } = this.state;
 
     return (
       <Section>
-        {articles.map(({ article_id, title }) => <h2 key={article_id}>{title}</h2>)}
+        {loading ? (
+          <p> Loading...</p>
+        ) : (
+            articles.map(({ article_id, title }) => <h2 key={article_id}>{title}</h2>)
+          )}
       </Section>
     );
   }
