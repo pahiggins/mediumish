@@ -5,7 +5,7 @@ import Header from '../../blocks/Header';
 import MainNav from '../../blocks/MainNav';
 import Main from '../../elements/Main';
 import Articles from '../Articles';
-import Article from '../Article';
+import ArticleDetails from '../ArticleDetails';
 
 class App extends Component {
   render() {
@@ -17,7 +17,7 @@ class App extends Component {
           <Main>
             <Route exact path="/" component={Articles} />
             <Route exact path="/topic/:slug" component={Articles} />
-            {/* <Route path="/articles/:article_id" component={Article} /> */}
+            <Route path="/:username/:article_id" component={ArticleDetails} />
             {/* <Route path="/topics/" component={} /> */}
             {/* <Route path="/:topic/articles" component={Articles} /> */}
           </Main>

@@ -13,7 +13,6 @@ export default class Articles extends Component {
 
   render() {
     const { articles, loading } = this.state;
-    // const { url } = this.props.match;
 
     return (
       <Section>

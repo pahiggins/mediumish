@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const StyledArticle = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 4.8rem;
+  margin-bottom: 4.8rem;
   background-color: rgba(0, 0, 0, 0.04); /* TODO: Remove */
 `;
 
@@ -17,20 +17,20 @@ const Span = styled.span`
   color: rgba(0, 0, 0, 0.54);
   font-family: 'Montserrat', sans-serif;
   font-size: 1.5rem;
-  line-height: 2rem;
+  line-height: 2;
 `;
 
 const H2 = styled.h2`
   font-size: 2.4rem;
   font-weight: 600;
-  line-height: 2.8rem;
+  line-height: 1.4;
   color: rgba(0, 0, 0, 0.84);
 `;
 
 const P = styled.p`
   font-size: 1.6rem;
   font-weight: 400;
-  line-height: 2rem;
+  line-height: 2;
   padding: 1rem 0 1.5rem 0;
   color: rgba(0, 0, 0, 0.54);
 `;
@@ -55,7 +55,7 @@ const Article = ({ article }) => {
       <StyledLink to={`/${article.topic}`}>
         <Span>{article.topic.toUpperCase()}</Span>
       </StyledLink>
-      <StyledLink to={`articles/${article.article_id}`}>
+      <StyledLink to={`${article.author}/${article.article_id}`}>
         <H2>{article.title}</H2>
         <P>Sample body...</P>
         <Author>{article.author}</Author>
