@@ -38,7 +38,9 @@ class MainNav extends Component {
             </Li>
             {topics.map(({ slug }) => (
               <Li key={slug}>
-                <StyledLink to={`/${slug}`}>{slug.toUpperCase()}</StyledLink>
+                <StyledLink to={`/topic/${slug}`}>
+                  {slug.toUpperCase()}
+                </StyledLink>
               </Li>
             ))}
           </Ul>

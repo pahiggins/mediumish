@@ -16,8 +16,8 @@ class App extends Component {
           <MainNav />
           <Main>
             <Route exact path="/" component={Articles} />
-            <Route exact path="/articles" component={Articles} />
-            <Route path="/articles/:article_id" component={Article} />
+            <Route exact path="/topic/:slug" component={Articles} />
+            {/* <Route path="/articles/:article_id" component={Article} /> */}
             {/* <Route path="/topics/" component={} /> */}
             {/* <Route path="/:topic/articles" component={Articles} /> */}
           </Main>

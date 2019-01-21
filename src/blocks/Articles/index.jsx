@@ -29,12 +29,29 @@ export default class Articles extends Component {
   }
 
   componentDidMount() {
-    this.loadArticles();
+    if (this.props.match.params.slug) {
+      this.loadArticlesByTopic(this.props.match.params.slug);
+    } else {
+      this.loadArticles();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.slug !== this.props.match.params.slug) {
+      this.loadArticlesByTopic(this.props.match.params.slug);
+    }
   }
 
   loadArticles = () => {
     api
       .getArticles()
+      .then(articles => this.setState({ articles, loading: false }))
+      .catch(error => this.setState({ error, loading: false }));
+  };
+
+  loadArticlesByTopic = topic => {
+    api
+      .getArticlesByTopic(topic)
       .then(articles => this.setState({ articles, loading: false }))
       .catch(error => this.setState({ error, loading: false }));
   };

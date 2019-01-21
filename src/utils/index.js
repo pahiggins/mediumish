@@ -15,3 +15,10 @@ export const getTopics = () => {
     .then(res => res.data)
     .catch(res => res);
 };
+
+export const getArticlesByTopic = topic => {
+  return axios
+    .get(`${BASE_URL}/topics/${topic}/articles`)
+    .then(res => res.data)
+    .catch(res => res);
+};
