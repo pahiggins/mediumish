@@ -13,7 +13,7 @@ export default class Articles extends Component {
 
   render() {
     const { articles, loading } = this.state;
-    const { url } = this.props.match;
+    // const { url } = this.props.match;
 
     return (
       <Section>
@@ -21,7 +21,7 @@ export default class Articles extends Component {
           <SpinLoader size={5} color="#ccc" />
         ) : (
           articles.map(article => (
-            <Article key={article.article_id} url={url} article={article} />
+            <Article key={article.article_id} article={article} />
           ))
         )}
       </Section>
