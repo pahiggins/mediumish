@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Person } from 'styled-icons/material';
 import H1 from '../../elements/H1';
@@ -9,10 +10,17 @@ const GreyPerson = styled(Person)`
   cursor: pointer;
 `;
 
+const StyledLink = styled(Link)`
+  color: #333;
+  text-decoration: none;
+`;
+
 export default () => {
   return (
     <Header>
-      <H1>NC News</H1>
+      <H1>
+        <StyledLink to="/">NC News</StyledLink>
+      </H1>
       <GreyPerson size="40" />
     </Header>
   );
