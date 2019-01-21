@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { SpinLoader } from 'react-css-loaders';
 import styled from 'styled-components';
+import Comments from '../Comments';
 import Section from '../../elements/Section';
 import * as api from '../../utils';
 
@@ -38,7 +39,7 @@ class ArticleDetails extends Component {
           <Fragment>
             <H2>{article.title}</H2>
             <P>{article.body}</P>
-            {/* <Comments /> */}
+            <Comments articleId={article.article_id} />
           </Fragment>
         )}
       </Section>
@@ -46,9 +47,9 @@ class ArticleDetails extends Component {
   }
 
   componentDidMount() {
-    const { article_id } = this.props.match.params;
+    const { articleId } = this.props.match.params;
 
-    this.loadArticle(article_id);
+    this.loadArticle(articleId);
   }
 
   loadArticle = id => {

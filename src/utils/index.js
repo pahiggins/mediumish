@@ -29,3 +29,10 @@ export const getTopics = () => {
     .then(res => res.data)
     .catch(err => err);
 };
+
+export const getCommentsByArticleId = id => {
+  return axios
+    .get(`${BASE_URL}/articles/${id}/comments`)
+    .then(res => res.data)
+    .catch(err => err);
+};

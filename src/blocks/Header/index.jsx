@@ -19,7 +19,7 @@ export default () => {
   return (
     <Header>
       <H1>
-        <StyledLink to="/">NC News</StyledLink>
+        <StyledLink to="/">Mediumish</StyledLink>
       </H1>
       <GreyPerson size="40" />
     </Header>

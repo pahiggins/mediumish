@@ -17,7 +17,7 @@ class App extends Component {
           <Main>
             <Route exact path="/" component={Articles} />
             <Route exact path="/topic/:slug" component={Articles} />
-            <Route path="/:username/:article_id" component={ArticleDetails} />
+            <Route path="/:username/:articleId" component={ArticleDetails} />
             {/* <Route path="/topics/" component={} /> */}
             {/* <Route path="/:topic/articles" component={Articles} /> */}
           </Main>
