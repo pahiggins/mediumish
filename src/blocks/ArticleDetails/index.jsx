@@ -47,6 +47,7 @@ class ArticleDetails extends Component {
             <Votes
               votes={article.votes}
               updateVotes={this.updateVotes}
+              articleId={article.article_id}
               inputMarginBottom="2.5rem"
             />
             <Comments articleId={article.article_id} />
@@ -69,12 +70,13 @@ class ArticleDetails extends Component {
       .catch(error => this.setState({ error, loading: false }));
   };
 
-  updateVotes = vote => {
-    const { article_id } = this.state.article;
-
+  updateVotes = (articleId, vote) => {
     api
-      .updateVotesByArticleId(article_id, vote)
-      .then(article => this.setState({ article }))
+      .updateVotesByArticleId(articleId, vote)
+      .then(article => {
+        // console.log(article); TODO: Check why API returns both 'author' and 'username'.
+        this.setState({ article });
+      })
       .catch(error => this.setState({ error }));
   };
 }

@@ -30,6 +30,13 @@ export const getTopics = () => {
     .catch(err => err);
 };
 
+export const addCommentByArticleId = (articleId, comment) => {
+  return axios
+    .post(`${BASE_URL}/articles/${articleId}/comments`, comment)
+    .then(res => res.data)
+    .catch(err => err);
+};
+
 export const getCommentsByArticleId = articleId => {
   return axios
     .get(`${BASE_URL}/articles/${articleId}/comments`)

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { SpinLoader } from 'react-css-loaders';
 import styled from 'styled-components';
 import Comment from '../Comment';
+import CommentAdd from '../CommentAdd';
 import Section from '../../elements/Section';
 import * as api from '../../utils';
 
@@ -29,6 +30,7 @@ class Comments extends Component {
         ) : (
           <Fragment>
             <H3>Comments</H3>
+            <CommentAdd addComment={this.addComment} />
             {comments.map(comment => (
               <Comment
                 key={comment.comment_id}
@@ -59,6 +61,19 @@ class Comments extends Component {
   updateVotes = (articleId, vote, commentId) => {
     api
       .updateVotesByCommentId(articleId, vote, commentId)
+      .then(comment => this.loadComments(articleId))
+      .catch(error => this.setState({ error }));
+  };
+
+  addComment = comment => {
+    const { articleId } = this.props;
+    const newComment = {
+      username: 'cooljmessy', // TODO: Make username dynamic and check correct rendering on page.
+      body: comment,
+    };
+
+    api
+      .addCommentByArticleId(articleId, newComment)
       .then(comment => this.loadComments(articleId))
       .catch(error => this.setState({ error }));
   };
