@@ -11,13 +11,14 @@ const StyledComment = styled.div`
   border-left: 1px solid rgba(0, 0, 0, 0.1);
 
   &:first-child {
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
+    background-color: red;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
   }
 
   &:last-child {
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
 `;

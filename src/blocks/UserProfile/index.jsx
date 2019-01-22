@@ -13,7 +13,7 @@ const StyledPerson = styled(Person)`
   height: 5rem;
   width: 5rem;
   margin-right: 1rem;
-  color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.15);
 `;
 
 const P = styled.p`

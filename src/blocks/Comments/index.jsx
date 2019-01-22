@@ -13,6 +13,8 @@ const H3 = styled.h3`
   color: rgba(0, 0, 0, 0.68);
 `;
 
+// Comment wrapper here?
+
 class Comments extends Component {
   state = {
     comments: [],
