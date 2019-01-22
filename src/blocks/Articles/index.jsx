@@ -63,9 +63,9 @@ export default class Articles extends Component {
       .catch(error => this.setState({ error, loading: false }));
   };
 
-  updateVotes = (vote, id) => {
+  updateVotes = (articleId, vote) => {
     api
-      .updateVotesByArticleId(id, vote)
+      .updateVotesByArticleId(articleId, vote)
       .then(article => this.loadArticles())
       .catch(error => this.setState({ error }));
   };

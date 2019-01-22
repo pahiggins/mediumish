@@ -37,12 +37,18 @@ const P = styled.p`
   color: rgba(0, 0, 0, 0.84);
 `;
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, updateVotes, articleId }) => {
   return (
     <StyledComment>
       <Author>{comment.author}</Author>
       <P>{comment.body}</P>
-      <Votes votes={comment.votes} inputHeight="2rem" />
+      <Votes
+        votes={comment.votes}
+        articleId={articleId}
+        commentId={comment.comment_id}
+        updateVotes={updateVotes}
+        inputHeight="2rem"
+      />
     </StyledComment>
   );
 };

@@ -81,7 +81,7 @@ const Article = ({
       </StyledLink>
       <Votes
         votes={votes}
-        id={article_id}
+        articleId={article_id}
         updateVotes={updateVotes}
         inputHeight="2rem"
       />

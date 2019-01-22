@@ -16,9 +16,9 @@ export const getArticlesByTopic = topic => {
     .catch(err => err);
 };
 
-export const getArticleById = id => {
+export const getArticleById = articleId => {
   return axios
-    .get(`${BASE_URL}/articles/${id}`)
+    .get(`${BASE_URL}/articles/${articleId}`)
     .then(res => res.data)
     .catch(err => err);
 };
@@ -30,16 +30,25 @@ export const getTopics = () => {
     .catch(err => err);
 };
 
-export const getCommentsByArticleId = id => {
+export const getCommentsByArticleId = articleId => {
   return axios
-    .get(`${BASE_URL}/articles/${id}/comments`)
+    .get(`${BASE_URL}/articles/${articleId}/comments`)
     .then(res => res.data)
     .catch(err => err);
 };
 
-export const updateVotesByArticleId = (id, vote) => {
+export const updateVotesByArticleId = (articleId, vote) => {
   return axios
-    .patch(`${BASE_URL}/articles/${id}`, {
+    .patch(`${BASE_URL}/articles/${articleId}`, {
+      inc_votes: vote,
+    })
+    .then(res => res.data)
+    .catch(err => err);
+};
+
+export const updateVotesByCommentId = (articleId, vote, commentId) => {
+  return axios
+    .patch(`${BASE_URL}/articles/${articleId}/comments/${commentId}`, {
       inc_votes: vote,
     })
     .then(res => res.data)

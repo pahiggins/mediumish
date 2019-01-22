@@ -30,7 +30,12 @@ class Comments extends Component {
           <Fragment>
             <H3>Comments</H3>
             {comments.map(comment => (
-              <Comment key={comment.comment_id} comment={comment} />
+              <Comment
+                key={comment.comment_id}
+                comment={comment}
+                updateVotes={this.updateVotes}
+                articleId={this.props.articleId}
+              />
             ))}
           </Fragment>
         )}
@@ -44,11 +49,18 @@ class Comments extends Component {
     this.loadComments(articleId);
   }
 
-  loadComments = id => {
+  loadComments = articleId => {
     api
-      .getCommentsByArticleId(id)
+      .getCommentsByArticleId(articleId)
       .then(comments => this.setState({ comments, loading: false }))
       .catch(error => this.setState({ error, loading: false }));
+  };
+
+  updateVotes = (articleId, vote, commentId) => {
+    api
+      .updateVotesByCommentId(articleId, vote, commentId)
+      .then(comment => this.loadComments(articleId))
+      .catch(error => this.setState({ error }));
   };
 }
 
