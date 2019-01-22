@@ -6,12 +6,12 @@ import H1 from '../../elements/H1';
 import Header from '../../elements/Header';
 
 const StyledPerson = styled(Person)`
-  color: #ccc;
+  color: rgba(0, 0, 0, 0.2);
   cursor: pointer;
 `;
 
 const StyledLink = styled(Link)`
-  color: #333;
+  color: rgba(0, 0, 0, 0.84);
   text-decoration: none;
 `;
 

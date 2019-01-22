@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { SpinLoader } from 'react-css-loaders';
 import styled from 'styled-components';
+import UserProfile from '../UserProfile';
 import Comments from '../Comments';
 import Votes from '../Votes';
 import Section from '../../elements/Section';
@@ -38,6 +39,10 @@ class ArticleDetails extends Component {
         ) : (
           <Fragment>
             <H2>{article.title}</H2>
+            <UserProfile
+              author={article.author}
+              createdAt={article.created_at}
+            />
             <P>{article.body}</P>
             <Votes
               votes={article.votes}
