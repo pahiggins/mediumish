@@ -33,7 +33,7 @@ const P = styled.p`
   padding-bottom: 1rem;
   font-size: 1.4rem;
   font-weight: 400;
-  line-height: 1.3;
+  line-height: 1.58;
   color: rgba(0, 0, 0, 0.84);
 `;
 
