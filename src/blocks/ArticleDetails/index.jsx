@@ -9,16 +9,15 @@ const H2 = styled.h2`
   font-family: 'Libre Baskerville', serif;
   font-size: 3.8rem;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.3;
   color: rgba(0, 0, 0, 0.84);
 `;
 
 const P = styled.p`
+  padding: 2.5rem 0 2.5rem 0;
   font-size: 2.1rem;
   font-weight: 400;
   line-height: 1.58;
-  padding: 1rem 0 1.5rem 0;
-  margin-top: 1.5rem;
 `;
 
 class ArticleDetails extends Component {

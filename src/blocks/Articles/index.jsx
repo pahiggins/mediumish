@@ -28,16 +28,20 @@ export default class Articles extends Component {
   }
 
   componentDidMount() {
-    if (this.props.match.params.slug) {
-      this.loadArticlesByTopic(this.props.match.params.slug);
-    } else {
+    if (this.props.match.path === '/') {
       this.loadArticles();
+    } else if (this.props.match.path === '/topic/:slug') {
+      this.loadArticlesByTopic(this.props.match.params.slug);
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.match.params.slug !== this.props.match.params.slug) {
-      this.loadArticlesByTopic(this.props.match.params.slug);
+    if (prevProps.match.url !== this.props.match.url) {
+      if (this.props.match.path === '/') {
+        this.loadArticles();
+      } else if (this.props.match.path === '/topic/:slug') {
+        this.loadArticlesByTopic(this.props.match.params.slug);
+      }
     }
   }
 
