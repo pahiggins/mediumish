@@ -39,7 +39,11 @@ class ArticleDetails extends Component {
           <Fragment>
             <H2>{article.title}</H2>
             <P>{article.body}</P>
-            <Votes votes={article.votes} inputMarginBottom="2.5rem" />
+            <Votes
+              votes={article.votes}
+              updateVotes={this.updateVotes}
+              inputMarginBottom="2.5rem"
+            />
             <Comments articleId={article.article_id} />
           </Fragment>
         )}
@@ -58,6 +62,15 @@ class ArticleDetails extends Component {
       .getArticleById(id)
       .then(article => this.setState({ article, loading: false }))
       .catch(error => this.setState({ error, loading: false }));
+  };
+
+  updateVotes = vote => {
+    const { article_id } = this.state.article;
+
+    api
+      .updateVotesByArticleId(article_id, vote)
+      .then(article => this.setState({ article }))
+      .catch(error => this.setState({ error }));
   };
 }
 

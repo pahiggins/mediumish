@@ -36,3 +36,12 @@ export const getCommentsByArticleId = id => {
     .then(res => res.data)
     .catch(err => err);
 };
+
+export const updateVotesByArticleId = (id, vote) => {
+  return axios
+    .patch(`${BASE_URL}/articles/${id}`, {
+      inc_votes: vote,
+    })
+    .then(res => res.data)
+    .catch(err => err);
+};

@@ -39,11 +39,17 @@ const P = styled.p`
   color: rgba(0, 0, 0, 0.54);
 `;
 
-const Votes = ({ votes, inputMarginBottom, inputHeight }) => {
+const Votes = ({ votes, updateVotes, inputMarginBottom, inputHeight }) => {
   return (
     <StyledVotes inputMarginBottom={inputMarginBottom}>
-      <StyledThumbsUp inputHeight={inputHeight} />
-      <StyledThumbsDown inputHeight={inputHeight} />
+      <StyledThumbsUp
+        onClick={() => updateVotes(1)}
+        inputHeight={inputHeight}
+      />
+      <StyledThumbsDown
+        onClick={() => updateVotes(-1)}
+        inputHeight={inputHeight}
+      />
       <P>{votes}</P>
     </StyledVotes>
   );
