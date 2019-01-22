@@ -73,9 +73,11 @@ class ArticleDetails extends Component {
   updateVotes = (articleId, vote) => {
     api
       .updateVotesByArticleId(articleId, vote)
-      .then(article => {
-        // console.log(article); TODO: Check why API returns both 'author' and 'username'.
-        this.setState({ article });
+      .then(updatedArticle => {
+        // Ensure that only the votes property is updated in article state.
+        this.setState({
+          article: { ...this.state.article, votes: updatedArticle.votes },
+        });
       })
       .catch(error => this.setState({ error }));
   };
