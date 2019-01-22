@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import moment from 'moment';
 import Votes from '../Votes';
 
 const StyledArticle = styled.div`
@@ -39,7 +40,7 @@ const Author = styled.div`
   padding-bottom: 0.5rem;
   font-size: 1.2rem;
   font-weight: 400;
-  color: rgba(0, 0, 0, 0.84);
+  color: #03a87c;
 `;
 
 const Details = styled.div`
@@ -74,7 +75,9 @@ const Article = ({
           report...
         </P>
         <Author>{author}</Author>
-        <Details>{`${created_at} | ${comment_count} comments`}</Details>
+        <Details>{`${moment(created_at).format(
+          'MMM D, YYYY'
+        )} | ${comment_count} comments`}</Details>
       </StyledLink>
       <Votes
         votes={votes}

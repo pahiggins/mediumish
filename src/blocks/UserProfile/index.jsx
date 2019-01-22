@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 import { Person } from 'styled-icons/octicons';
 
 const StyledUserProfile = styled.div`
@@ -28,7 +29,9 @@ const UserProfile = ({ author, createdAt }) => {
       <StyledPerson />
       <div>
         <P>{author}</P>
-        <P inputColor="rgba(0, 0, 0, 0.54)">{createdAt}</P>
+        <P inputColor="rgba(0, 0, 0, 0.54)">
+          {moment(createdAt).format('MMM D, YYYY')}
+        </P>
       </div>
     </StyledUserProfile>
   );
