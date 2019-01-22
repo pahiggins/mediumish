@@ -15,7 +15,7 @@ class Comments extends Component {
     const { comments, loading } = this.state;
 
     return (
-      <Section inputWidth="80%" inputMargin="0 auto">
+      <Section inputWidth="80%" inputMargin="0 auto 9.6rem auto">
         {loading ? (
           <SpinLoader size={5} color="#ccc" />
         ) : (
