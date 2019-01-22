@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Votes from '../Votes';
 
 const StyledArticle = styled.div`
   display: flex;
@@ -48,7 +49,7 @@ const Details = styled.div`
   color: rgba(0, 0, 0, 0.54);
 `;
 
-const Article = ({ article }) => {
+const Article = ({ article, updateVotes }) => {
   return (
     <StyledArticle>
       <StyledLink to={`/topic/${article.topic}`}>
@@ -63,11 +64,15 @@ const Article = ({ article }) => {
         </P>
         <Author>{article.author}</Author>
         <Details>
-          {`${article.created_at} | ${article.votes} votes | ${
-            article.comment_count
-          } comments`}
+          {`${article.created_at} | ${article.comment_count} comments`}
         </Details>
       </StyledLink>
+      <Votes
+        votes={article.votes}
+        id={article.article_id}
+        updateVotes={updateVotes}
+        inputHeight="2rem"
+      />
     </StyledArticle>
   );
 };

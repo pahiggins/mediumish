@@ -20,7 +20,11 @@ export default class Articles extends Component {
           <SpinLoader size={5} color="#ccc" />
         ) : (
           articles.map(article => (
-            <Article key={article.article_id} article={article} />
+            <Article
+              key={article.article_id}
+              article={article}
+              updateVotes={this.updateVotes}
+            />
           ))
         )}
       </Section>
@@ -57,5 +61,12 @@ export default class Articles extends Component {
       .getArticlesByTopic(topic)
       .then(articles => this.setState({ articles, loading: false }))
       .catch(error => this.setState({ error, loading: false }));
+  };
+
+  updateVotes = (vote, id) => {
+    api
+      .updateVotesByArticleId(id, vote)
+      .then(article => this.loadArticles())
+      .catch(error => this.setState({ error }));
   };
 }
