@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import Votes from '../Votes';
 
 const StyledComment = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1.5rem 2rem;
-  /* border: 1px solid rgba(0, 0, 0, 0.1); */
+  padding: 2rem;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   border-right: 1px solid rgba(0, 0, 0, 0.1);
   border-left: 1px solid rgba(0, 0, 0, 0.1);
@@ -42,6 +42,7 @@ const Comment = ({ comment }) => {
     <StyledComment>
       <Author>{comment.author}</Author>
       <P>{comment.body}</P>
+      <Votes votes={comment.votes} inputHeight="2rem" />
     </StyledComment>
   );
 };

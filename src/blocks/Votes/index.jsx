@@ -5,11 +5,11 @@ import { ThumbsUp, ThumbsDown } from 'styled-icons/feather';
 const StyledVotes = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: ${props => props.inputMarginBottom || 0};
 `;
 
 const StyledThumbsUp = styled(ThumbsUp)`
-  height: 2.5rem;
+  height: ${props => props.inputHeight || '3rem'};
   margin-right: 0.5rem;
   color: #ccc;
   cursor: pointer;
@@ -21,7 +21,7 @@ const StyledThumbsUp = styled(ThumbsUp)`
 `;
 
 const StyledThumbsDown = styled(ThumbsDown)`
-  height: 2.5rem;
+  height: ${props => props.inputHeight || '3rem'};
   margin-right: 0.5rem;
   color: #ccc;
   cursor: pointer;
@@ -39,11 +39,11 @@ const P = styled.p`
   color: rgba(0, 0, 0, 0.54);
 `;
 
-const Votes = ({ votes }) => {
+const Votes = ({ votes, inputMarginBottom, inputHeight }) => {
   return (
-    <StyledVotes>
-      <StyledThumbsUp />
-      <StyledThumbsDown />
+    <StyledVotes inputMarginBottom={inputMarginBottom}>
+      <StyledThumbsUp inputHeight={inputHeight} />
+      <StyledThumbsDown inputHeight={inputHeight} />
       <P>{votes}</P>
     </StyledVotes>
   );

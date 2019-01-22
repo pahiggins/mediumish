@@ -39,7 +39,7 @@ class ArticleDetails extends Component {
           <Fragment>
             <H2>{article.title}</H2>
             <P>{article.body}</P>
-            <Votes votes={article.votes} />
+            <Votes votes={article.votes} inputMarginBottom="2.5rem" />
             <Comments articleId={article.article_id} />
           </Fragment>
         )}
