@@ -49,27 +49,36 @@ const Details = styled.div`
   color: rgba(0, 0, 0, 0.54);
 `;
 
-const Article = ({ article, updateVotes }) => {
+const Article = ({
+  article: {
+    topic,
+    author,
+    article_id,
+    title,
+    created_at,
+    comment_count,
+    votes,
+  },
+  updateVotes,
+}) => {
   return (
     <StyledArticle>
-      <StyledLink to={`/topic/${article.topic}`}>
-        <Span>{article.topic.toUpperCase()}</Span>
+      <StyledLink to={`/topic/${topic}`}>
+        <Span>{topic.toUpperCase()}</Span>
       </StyledLink>
-      <StyledLink to={`/${article.author}/${article.article_id}`}>
-        <H2>{article.title}</H2>
+      <StyledLink to={`/${author}/${article_id}`}>
+        <H2>{title}</H2>
         <P>
           SEAFOOD fraud is a serious global problem', begins a recent report
           from Oceana, an NGO. Reviewing over 200 studies in 55 countries, the
           report...
         </P>
-        <Author>{article.author}</Author>
-        <Details>
-          {`${article.created_at} | ${article.comment_count} comments`}
-        </Details>
+        <Author>{author}</Author>
+        <Details>{`${created_at} | ${comment_count} comments`}</Details>
       </StyledLink>
       <Votes
-        votes={article.votes}
-        id={article.article_id}
+        votes={votes}
+        id={article_id}
         updateVotes={updateVotes}
         inputHeight="2rem"
       />
