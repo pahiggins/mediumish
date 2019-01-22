@@ -5,7 +5,7 @@ import { Person } from 'styled-icons/material';
 import H1 from '../../elements/H1';
 import Header from '../../elements/Header';
 
-const GreyPerson = styled(Person)`
+const StyledPerson = styled(Person)`
   color: #ccc;
   cursor: pointer;
 `;
@@ -21,7 +21,7 @@ export default () => {
       <H1>
         <StyledLink to="/">Mediumish</StyledLink>
       </H1>
-      <GreyPerson size="40" />
+      <StyledPerson size="40" />
     </Header>
   );
 };

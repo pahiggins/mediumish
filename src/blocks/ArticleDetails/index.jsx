@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { SpinLoader } from 'react-css-loaders';
 import styled from 'styled-components';
 import Comments from '../Comments';
+import Votes from '../Votes';
 import Section from '../../elements/Section';
 import * as api from '../../utils';
 
@@ -38,6 +39,7 @@ class ArticleDetails extends Component {
           <Fragment>
             <H2>{article.title}</H2>
             <P>{article.body}</P>
+            <Votes votes={article.votes} />
             <Comments articleId={article.article_id} />
           </Fragment>
         )}
