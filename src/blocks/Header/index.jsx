@@ -37,8 +37,12 @@ export default () => {
         <StyledLink to="/">Mediumish</StyledLink>
       </H1>
       <div>
-        <StyledNoteAdd size="34.14" />
-        <StyledPerson size="32.5" />
+        <Link to="/new-article">
+          <StyledNoteAdd size="34.14" />
+        </Link>
+        <Link to="/log-in">
+          <StyledPerson size="32.5" />
+        </Link>
       </div>
     </Header>
   );

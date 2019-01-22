@@ -64,9 +64,21 @@ export default class Articles extends Component {
   };
 
   updateVotes = (articleId, vote) => {
+    const { articles } = this.state;
+
     api
       .updateVotesByArticleId(articleId, vote)
-      .then(article => this.loadArticles())
+      .then(updatedArticle => {
+        const updatedArticles = articles.map(article => {
+          if (article.article_id === updatedArticle.article_id) {
+            return { ...article, votes: updatedArticle.votes };
+          } else {
+            return article;
+          }
+        });
+
+        this.setState({ articles: updatedArticles });
+      })
       .catch(error => this.setState({ error }));
   };
 }

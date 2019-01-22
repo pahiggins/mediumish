@@ -17,10 +17,10 @@ class App extends Component {
           <Main>
             <Switch>
               <Route exact path="/" component={Articles} />
+              {/* <Route exact path="/log-in" component={LogIn} /> */}
+              {/* <Route exact path="/new-article" component={ArticleAdd} /> */}
               <Route exact path="/topic/:slug" component={Articles} />
               <Route path="/:username/:articleId" component={ArticleDetails} />
-              {/* <Route path="/topics/" component={} /> */}
-              {/* <Route path="/:topic/articles" component={Articles} /> */}
             </Switch>
           </Main>
         </Fragment>
