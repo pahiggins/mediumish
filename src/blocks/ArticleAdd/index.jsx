@@ -35,6 +35,7 @@ const Select = styled.select`
 
   &:focus {
     outline: none;
+    border: 1px solid rgba(3, 168, 124, 1);
   }
 `;
 
