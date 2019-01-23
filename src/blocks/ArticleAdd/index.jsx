@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SpinLoader } from 'react-css-loaders';
 import styled from 'styled-components';
 import Section from '../../elements/Section';
+import Button from '../../elements/Button';
 import * as api from '../../utils';
 import { capitalizeFirstLetter } from './utils';
 
@@ -58,36 +59,6 @@ const TextArea = styled.textarea`
 const Buttons = styled.div`
   display: flex;
   justify-content: center;
-`;
-
-const Button = styled.button`
-  padding: 0 1.5rem;
-  margin-right: ${props => props.marginRight || 0};
-  height: 3.7rem;
-  line-height: 3.7rem;
-  background-color: ${props => props.backgroundColor};
-  border-color: ${props => props.borderColor};
-  border-radius: 0.4rem;
-  font-size: 1.6rem;
-  text-align: center;
-  color: ${props => props.color};
-  cursor: pointer;
-  transition: borderColor 0.5s;
-
-  &:hover {
-    background-color: ${props => props.backgroundColorHover};
-    border-color: ${props => props.borderColorHover};
-    color: ${props => props.colorHover};
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  &:select {
-    background-color: ${props => props.backgroundColorSelect};
-    border-color: ${props => props.borderColorSelect};
-  }
 `;
 
 class ArticleAdd extends Component {

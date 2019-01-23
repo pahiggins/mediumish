@@ -32,7 +32,6 @@ class Comments extends Component {
         ) : (
           <Fragment>
             <H3>Comments</H3>
-            <CommentAdd addComment={this.addComment} />
             {comments.map(comment => (
               <Comment
                 key={comment.comment_id}
@@ -41,6 +40,7 @@ class Comments extends Component {
                 articleId={this.props.articleId}
               />
             ))}
+            <CommentAdd addComment={this.addComment} />
           </Fragment>
         )}
       </Section>
