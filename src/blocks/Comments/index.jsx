@@ -32,14 +32,16 @@ class Comments extends Component {
         ) : (
           <Fragment>
             <H3>Comments</H3>
-            {comments.map(comment => (
-              <Comment
-                key={comment.comment_id}
-                comment={comment}
-                updateVotes={this.updateVotes}
-                articleId={this.props.articleId}
-              />
-            ))}
+            <div>
+              {comments.map(comment => (
+                <Comment
+                  key={comment.comment_id}
+                  comment={comment}
+                  updateVotes={this.updateVotes}
+                  articleId={this.props.articleId}
+                />
+              ))}
+            </div>
             <CommentAdd addComment={this.addComment} />
           </Fragment>
         )}

@@ -11,7 +11,6 @@ const StyledComment = styled.div`
   border-left: 1px solid rgba(0, 0, 0, 0.1);
 
   &:first-child {
-    background-color: red;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
   }
