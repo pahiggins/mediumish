@@ -40,7 +40,7 @@ const P = styled.p`
 const Comment = ({ comment, updateVotes, articleId }) => {
   return (
     <StyledComment>
-      <Author>{comment.author}</Author>
+      <Author>{comment.username}</Author>
       <P>{comment.body}</P>
       <Votes
         votes={comment.votes}

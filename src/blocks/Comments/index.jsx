@@ -71,6 +71,7 @@ class Comments extends Component {
 
   addComment = comment => {
     const { articleId } = this.props;
+    const { comments } = this.state;
     const newComment = {
       username: 'cooljmessy', // TODO: Make username dynamic and check correct rendering on page.
       body: comment,
@@ -78,7 +79,11 @@ class Comments extends Component {
 
     api
       .addCommentByArticleId(articleId, newComment)
-      .then(comment => this.loadComments(articleId))
+      .then(addedComment => {
+        this.setState({
+          comments: [...comments, { ...addedComment }],
+        });
+      })
       .catch(error => this.setState({ error }));
   };
 }
