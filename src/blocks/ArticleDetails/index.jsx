@@ -5,6 +5,7 @@ import UserProfile from '../UserProfile';
 import Comments from '../Comments';
 import Votes from '../Votes';
 import Section from '../../elements/Section';
+import Button from '../../elements/Button';
 import * as api from '../../utils';
 
 const H2 = styled.h2`
@@ -20,6 +21,12 @@ const P = styled.p`
   font-size: 2.1rem;
   font-weight: 400;
   line-height: 1.58;
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 9.6rem;
 `;
 
 class ArticleDetails extends Component {
@@ -51,6 +58,20 @@ class ArticleDetails extends Component {
               inputMarginBottom="2.5rem"
             />
             <Comments articleId={article.article_id} />
+            <Buttons>
+              <Button
+                type="submit"
+                backgroundColorHover={'rgba(255, 86, 48, 1)'}
+                borderColor={'rgba(255, 86, 48, 1)'}
+                color={'rgba(255, 86, 48, 1)'}
+                colorHover={'#fff'}
+                backgroundColorSelect={'rgba(255, 86, 48, 0.8)'}
+                borderColorSelect={'rgba(255, 86, 48, 0.8)'}
+                onClick={this.deleteArticleById}
+              >
+                Delete Article
+              </Button>
+            </Buttons>
           </Fragment>
         )}
       </Section>
@@ -80,6 +101,15 @@ class ArticleDetails extends Component {
         });
       })
       .catch(error => this.setState({ error }));
+  };
+
+  deleteArticleById = () => {
+    const { article_id } = this.state.article;
+
+    api
+      .deleteArticle(article_id)
+      .then(() => this.props.history.push(`/`))
+      .catch(error => this.setState({ error, loading: false }));
   };
 }
 

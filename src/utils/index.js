@@ -72,3 +72,10 @@ export const addArticle = (title, body, username, topic) => {
     .then(res => res.data)
     .catch(err => err);
 };
+
+export const deleteArticle = articleId => {
+  return axios
+    .delete(`${BASE_URL}/articles/${articleId}`)
+    .then(res => res.data)
+    .catch(err => err);
+};

@@ -138,7 +138,6 @@ class ArticleAdd extends Component {
                 colorHover={'#fff'}
                 backgroundColorSelect={'rgba(3, 168, 124, 0.8)'}
                 borderColorSelect={'rgba(3, 168, 124, 0.8)'}
-                onClick={() => {}}
               >
                 Publish
               </Button>
@@ -179,8 +178,7 @@ class ArticleAdd extends Component {
     api
       .addArticle(title, body, username, topic)
       .then(({ article_id }) =>
-        // this.props.history.push(`/${username}/${article_id}`)
-        this.props.history.push(`/`)
+        this.props.history.push(`/${username}/${article_id}`)
       )
       .catch(error => this.setState({ error }));
   };
