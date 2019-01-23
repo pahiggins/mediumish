@@ -17,7 +17,7 @@ const StyledPerson = styled(Person)`
 
 const StyledNoteAdd = styled(AddCircle)`
   color: rgba(0, 0, 0, 0.15);
-  margin-right: 0.75rem;
+  margin-right: 1rem;
   cursor: pointer;
 
   &:hover {
