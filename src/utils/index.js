@@ -40,7 +40,10 @@ export const addCommentByArticleId = (articleId, comment) => {
 export const getCommentsByArticleId = articleId => {
   return axios
     .get(`${BASE_URL}/articles/${articleId}/comments`)
-    .then(res => res.data)
+    .then(res => {
+      console.log(res.data);
+      return res.data;
+    })
     .catch(err => err);
 };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import styled from 'styled-components';
 import Votes from '../Votes';
 
@@ -22,11 +23,21 @@ const StyledComment = styled.div`
   }
 `;
 
+const Header = styled.div`
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+`;
+
 const Author = styled.div`
-  padding-bottom: 1rem;
+  margin-right: 0.5rem;
   font-size: 1.4rem;
   font-weight: 400;
   color: #03a87c;
+`;
+
+const Date = styled.div`
+  padding-bottom: 0.1rem;
 `;
 
 const P = styled.p`
@@ -40,7 +51,10 @@ const P = styled.p`
 const Comment = ({ comment, updateVotes, articleId }) => {
   return (
     <StyledComment>
-      <Author>{comment.username}</Author>
+      <Header>
+        <Author>{comment.username}</Author>
+        <Date>{moment(comment.created_at).format('MMM D, YYYY')}</Date>
+      </Header>
       <P>{comment.body}</P>
       <Votes
         votes={comment.votes}
