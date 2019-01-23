@@ -26,6 +26,16 @@ const Input = styled.input`
   }
 `;
 
+const Select = styled.select`
+  margin-bottom: 2.5rem;
+  height: 4rem;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 const TextArea = styled.textarea`
   font-family: 'Libre Baskerville', serif;
   margin-bottom: 2rem;
@@ -85,7 +95,7 @@ class ArticleAdd extends Component {
   state = {
     title: '',
     body: '',
-    redirect: '',
+    topics: [],
   };
 
   render() {
@@ -102,6 +112,13 @@ class ArticleAdd extends Component {
             placeholder="Title"
             autoFocus
           />
+          <Select type="select" name="select" id="topics">
+            <option>Topic 1</option>
+            <option>Topic 2</option>
+            <option>Topic 3</option>
+            <option>Topic 4</option>
+            <option>Topic 5</option>
+          </Select>
           <TextArea
             type="text"
             id="body"
