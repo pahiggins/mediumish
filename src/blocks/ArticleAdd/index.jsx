@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import Section from '../../elements/Section';
 import * as api from '../../utils';
@@ -44,6 +44,8 @@ const TextArea = styled.textarea`
   }
 `;
 
+// const Select = styled.select``;
+
 const Buttons = styled.div`
   display: flex;
   justify-content: center;
@@ -87,7 +89,7 @@ class ArticleAdd extends Component {
   };
 
   render() {
-    const { title, body, redirect } = this.state;
+    const { title, body } = this.state;
 
     return (
       <Section inputWidth="80%" inputMargin="0 auto">
@@ -116,7 +118,7 @@ class ArticleAdd extends Component {
               borderColorHover={'rgba(0, 0, 0, 0.54)'}
               color={'rgba(0, 0, 0, 0.54)'}
               marginRight={'1.5rem'}
-              onClick={() => {}}
+              onClick={this.handleClick}
             >
               Cancel
             </Button>
@@ -143,6 +145,10 @@ class ArticleAdd extends Component {
     this.setState({
       [id]: value,
     });
+  };
+
+  handleClick = () => {
+    this.props.history.push('/');
   };
 
   handleSubmit = event => {
