@@ -54,8 +54,6 @@ const TextArea = styled.textarea`
   }
 `;
 
-// const Select = styled.select``;
-
 const Buttons = styled.div`
   display: flex;
   justify-content: center;
@@ -93,15 +91,16 @@ const Button = styled.button`
 
 class ArticleAdd extends Component {
   state = {
-    title: '',
-    body: '',
     topics: [],
+    title: '',
+    topic: 'coding',
+    body: '',
     loading: true,
     error: '',
   };
 
   render() {
-    const { title, body, topics, loading } = this.state;
+    const { topics, title, topic, body, loading } = this.state;
 
     return (
       <Section inputWidth="80%" inputMargin="0 auto">
@@ -117,9 +116,15 @@ class ArticleAdd extends Component {
               placeholder="Title"
               autoFocus
             />
-            <Select type="select" name="select" id="topics">
+            <Select
+              type="select"
+              id="topic"
+              value={topic}
+              name="select"
+              onChange={this.handleChange}
+            >
               {topics.map(({ slug }) => (
-                <option>{slug}</option>
+                <option key={slug}>{slug}</option>
               ))}
             </Select>
             <TextArea
@@ -184,15 +189,17 @@ class ArticleAdd extends Component {
   };
 
   handleSubmit = event => {
-    const { title, body } = this.state;
-
     event.preventDefault();
+    const { title, body, topic } = this.state;
+    const username = 'tickle122'; // TODO: Code this.
 
-    this.props.addArticle({ title, body });
-    this.setState({
-      title: '',
-      body: '',
-    });
+    api
+      .addArticle(title, body, username, topic)
+      .then(({ article_id }) =>
+        // this.props.history.push(`/${username}/${article_id}`)
+        this.props.history.push(`/`)
+      )
+      .catch(error => this.setState({ error }));
   };
 }
 

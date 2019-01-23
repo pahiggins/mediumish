@@ -61,3 +61,14 @@ export const updateVotesByCommentId = (articleId, vote, commentId) => {
     .then(res => res.data)
     .catch(err => err);
 };
+
+export const addArticle = (title, body, username, topic) => {
+  return axios
+    .post(`${BASE_URL}/topics/${topic}/articles`, {
+      title,
+      body,
+      username,
+    })
+    .then(res => res.data)
+    .catch(err => err);
+};
