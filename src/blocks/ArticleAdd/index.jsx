@@ -20,11 +20,16 @@ const Input = styled.input`
   color: rgba(0, 0, 0, 0.84);
 
   &::placeholder {
-    color: rgba(0, 0, 0, 0.24);
+    color: rgba(0, 0, 0, 0.54);
+    transition: color 0.5s;
   }
 
   &:focus {
     outline: none;
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.24);
+    }
   }
 `;
 
@@ -49,11 +54,16 @@ const TextArea = styled.textarea`
   resize: none;
 
   &::placeholder {
-    color: rgba(0, 0, 0, 0.24);
+    color: rgba(0, 0, 0, 0.54);
+    transition: color 0.5s;
   }
 
   &:focus {
     outline: none;
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.24);
+    }
   }
 `;
 
