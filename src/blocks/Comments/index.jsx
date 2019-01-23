@@ -13,7 +13,10 @@ const H3 = styled.h3`
   color: rgba(0, 0, 0, 0.68);
 `;
 
-// Comment wrapper here?
+const P = styled.p`
+  font-size: 1.4rem;
+  color: rgba(0, 0, 0, 0.84);
+`;
 
 class Comments extends Component {
   state = {
@@ -33,14 +36,18 @@ class Comments extends Component {
           <Fragment>
             <H3>Comments</H3>
             <div>
-              {comments.map(comment => (
-                <Comment
-                  key={comment.comment_id}
-                  comment={comment}
-                  updateVotes={this.updateVotes}
-                  articleId={this.props.articleId}
-                />
-              ))}
+              {comments.length === 0 ? (
+                <P>Be the first to add a comment...</P>
+              ) : (
+                comments.map(comment => (
+                  <Comment
+                    key={comment.comment_id}
+                    comment={comment}
+                    updateVotes={this.updateVotes}
+                    articleId={this.props.articleId}
+                  />
+                ))
+              )}
             </div>
             <CommentAdd addComment={this.addComment} />
           </Fragment>
