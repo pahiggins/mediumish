@@ -79,3 +79,10 @@ export const deleteArticle = articleId => {
     .then(res => res.data)
     .catch(err => err);
 };
+
+export const deleteCommentByArticleId = (articleId, commentId) => {
+  return axios
+    .delete(`${BASE_URL}/articles/${articleId}/comments/${commentId}`)
+    .then(res => res.data)
+    .catch(err => err);
+};

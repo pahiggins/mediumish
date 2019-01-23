@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
+import { DeleteForever } from 'styled-icons/material/DeleteForever';
 import Votes from '../Votes';
 
 const StyledComment = styled.div`
@@ -36,7 +37,7 @@ const Author = styled.div`
   color: #03a87c;
 `;
 
-const Date = styled.div`
+const StyledDate = styled.div`
   padding-bottom: 0.1rem;
 `;
 
@@ -48,21 +49,44 @@ const P = styled.p`
   color: rgba(0, 0, 0, 0.84);
 `;
 
-const Comment = ({ comment, updateVotes, articleId }) => {
+const Footer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const StyledDeleteForever = styled(DeleteForever)`
+  height: ${props => props.inputHeight || '3rem'};
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.5s;
+
+  &:hover {
+    color: rgba(255, 86, 48, 1);
+  }
+`;
+
+const Comment = ({ comment, updateVotes, articleId, deleteComment }) => {
   return (
     <StyledComment>
       <Header>
         <Author>{comment.username}</Author>
-        <Date>{moment(comment.created_at).format('MMM D, YYYY')}</Date>
+        <StyledDate>
+          {moment(comment.created_at).format('MMM D, YYYY')}
+        </StyledDate>
       </Header>
       <P>{comment.body}</P>
-      <Votes
-        votes={comment.votes}
-        articleId={articleId}
-        commentId={comment.comment_id}
-        updateVotes={updateVotes}
-        inputHeight="2rem"
-      />
+      <Footer>
+        <Votes
+          votes={comment.votes}
+          articleId={articleId}
+          commentId={comment.comment_id}
+          updateVotes={updateVotes}
+          inputHeight="2rem"
+        />
+        <StyledDeleteForever
+          onClick={() => deleteComment(articleId, comment.comment_id)}
+        />
+      </Footer>
     </StyledComment>
   );
 };

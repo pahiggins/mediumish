@@ -45,6 +45,7 @@ class Comments extends Component {
                     comment={comment}
                     updateVotes={this.updateVotes}
                     articleId={this.props.articleId}
+                    deleteComment={this.deleteComment}
                   />
                 ))
               )}
@@ -91,6 +92,13 @@ class Comments extends Component {
           comments: [...comments, { ...addedComment }],
         });
       })
+      .catch(error => this.setState({ error }));
+  };
+
+  deleteComment = (articleId, commentId) => {
+    api
+      .deleteCommentByArticleId(articleId, commentId)
+      .then(() => this.loadComments(articleId))
       .catch(error => this.setState({ error }));
   };
 }
