@@ -1,8 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import styled from 'styled-components';
 import { SpinLoader } from 'react-css-loaders';
 import Article from '../Article';
+import Filter from '../Filter';
 import Section from '../../elements/Section';
 import * as api from '../../utils';
+
+const LeftSide = styled.div`
+  width: 66.66%;
+`;
+
+const RightSide = styled.div`
+  width: 33.34%;
+  background-color: #f5f5f5;
+`;
 
 export default class Articles extends Component {
   state = {
@@ -15,17 +26,24 @@ export default class Articles extends Component {
     const { articles, loading } = this.state;
 
     return (
-      <Section>
+      <Section flexDirection="row">
         {loading ? (
           <SpinLoader size={5} color="#ccc" />
         ) : (
-          articles.map(article => (
-            <Article
-              key={article.article_id}
-              article={article}
-              updateVotes={this.updateVotes}
-            />
-          ))
+          <Fragment>
+            <LeftSide>
+              {articles.map(article => (
+                <Article
+                  key={article.article_id}
+                  article={article}
+                  updateVotes={this.updateVotes}
+                />
+              ))}
+            </LeftSide>
+            <RightSide>
+              <Filter />
+            </RightSide>
+          </Fragment>
         )}
       </Section>
     );
