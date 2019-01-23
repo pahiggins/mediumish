@@ -3,6 +3,7 @@ import { SpinLoader } from 'react-css-loaders';
 import styled from 'styled-components';
 import Section from '../../elements/Section';
 import * as api from '../../utils';
+import { capitalizeFirstLetter } from './utils';
 
 const Form = styled.form`
   display: flex;
@@ -124,7 +125,7 @@ class ArticleAdd extends Component {
               onChange={this.handleChange}
             >
               {topics.map(({ slug }) => (
-                <option key={slug}>{slug}</option>
+                <option key={slug}>{capitalizeFirstLetter(slug)}</option>
               ))}
             </Select>
             <TextArea
