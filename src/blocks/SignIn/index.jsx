@@ -104,7 +104,7 @@ class SignIn extends Component {
         />
         <Buttons>
           <Button
-            type="submit"
+            type="button"
             borderColor={'rgba(0, 0, 0, 0.24)'}
             borderColorHover={'rgba(0, 0, 0, 0.54)'}
             color={'rgba(0, 0, 0, 0.54)'}
@@ -114,7 +114,7 @@ class SignIn extends Component {
             Cancel
           </Button>
           <Button
-            type="submit"
+            type="button"
             backgroundColorHover={'rgba(3, 168, 124, 1)'}
             borderColor={'rgba(3, 168, 124, 1)'}
             color={'rgba(3, 168, 124, 1)'}
@@ -144,7 +144,7 @@ class SignIn extends Component {
         </WelcomeMessage>
         <Buttons>
           <Button
-            type="submit"
+            type="button"
             borderColor={'rgba(0, 0, 0, 0.24)'}
             borderColorHover={'rgba(0, 0, 0, 0.54)'}
             color={'rgba(0, 0, 0, 0.54)'}
@@ -154,7 +154,7 @@ class SignIn extends Component {
             Browse Articles
           </Button>
           <Button
-            type="submit"
+            type="button"
             backgroundColorHover={'rgba(3, 168, 124, 1)'}
             borderColor={'rgba(3, 168, 124, 1)'}
             color={'rgba(3, 168, 124, 1)'}
@@ -178,7 +178,7 @@ class SignIn extends Component {
   };
 
   handleClick = () => {
-    this.props.history.push('/');
+    this.props.history.push('/art');
   };
 
   signIn = (e, toggleUsername) => {
