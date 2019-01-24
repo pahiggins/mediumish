@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { Warning } from 'styled-icons/icomoon';
+import AuthContext from '../App/AuthContext';
 import Section from '../../elements/Section';
 import Button from '../../elements/Button';
 import * as api from '../../utils';
@@ -67,28 +68,31 @@ const WelcomeMessage = styled.div`
   font-size: 1.6rem;
 `;
 
-class SignIn extends Component {
+class Auth extends Component {
   state = {
     username: '',
-    signedIn: true, // temporary, perhaps add loading feature also?
     error: '',
   };
 
   render() {
-    const { username, signedIn, error } = this.state;
+    const { username, error } = this.state;
 
     return (
       <Section inputWidth="80%" inputMargin="0 auto">
-        {signedIn
-          ? this.renderLogOutContent()
-          : this.renderSignInContent(username, error)}
+        <AuthContext.Consumer>
+          {({ status, toggleStatus }) =>
+            status === 'signedOut'
+              ? this.renderSignInContent(username, error, toggleStatus)
+              : this.renderLogOutContent(toggleStatus)
+          }
+        </AuthContext.Consumer>
       </Section>
     );
   }
 
-  renderSignInContent = (username, error) => {
+  renderSignInContent = (username, error, toggleStatus) => {
     return (
-      <Form onSubmit={this.signIn}>
+      <Form onSubmit={e => this.signIn(e, toggleStatus)}>
         <Input
           type="text"
           id="username"
@@ -130,7 +134,7 @@ class SignIn extends Component {
     );
   };
 
-  renderLogOutContent = () => {
+  renderLogOutContent = toggleStatus => {
     return (
       <Fragment>
         <WelcomeMessage>
@@ -155,7 +159,7 @@ class SignIn extends Component {
             colorHover={'#fff'}
             backgroundColorSelect={'rgba(3, 168, 124, 0.8)'}
             borderColorSelect={'rgba(3, 168, 124, 0.8)'}
-            onClick={this.signOut}
+            onClick={() => this.signOut(toggleStatus)}
           >
             Sign Out
           </Button>
@@ -175,16 +179,15 @@ class SignIn extends Component {
     this.props.history.push('/');
   };
 
-  signIn = event => {
-    event.preventDefault();
+  signIn = (e, toggleStatus) => {
+    e.preventDefault();
     const { username } = this.state;
 
     api
       .validateUser(username)
       .then(user => {
         if (user.username) {
-          // Set context here.
-          this.props.history.push('/');
+          toggleStatus();
         } else {
           this.setState({
             error: 'The username you entered is incorrect.',
@@ -197,9 +200,9 @@ class SignIn extends Component {
       });
   };
 
-  signOut = () => {
-    console.log('Sign Out');
+  signOut = toggleStatus => {
+    toggleStatus();
   };
 }
 
-export default SignIn;
+export default Auth;

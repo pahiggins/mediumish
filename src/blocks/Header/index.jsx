@@ -40,7 +40,7 @@ export default () => {
         <Link to="/new-article">
           <StyledNoteAdd size="34.14" />
         </Link>
-        <Link to="/sign-in">
+        <Link to="/auth">
           <StyledPerson size="32.5" />
         </Link>
       </div>

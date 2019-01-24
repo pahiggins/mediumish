@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import moment from 'moment';
+import AuthContext from '../App/AuthContext';
 import Votes from '../Votes';
 
 const StyledArticle = styled.div`
@@ -79,12 +80,22 @@ const Article = ({
           'MMM D, YYYY'
         )} | ${comment_count} comments`}</Details>
       </StyledLink>
-      <Votes
-        votes={votes}
-        articleId={article_id}
-        updateVotes={updateVotes}
-        inputHeight="2rem"
-      />
+      <AuthContext.Consumer>
+        {({ status }) => {
+          if (status === 'signedIn') {
+            return (
+              <Votes
+                votes={votes}
+                articleId={article_id}
+                updateVotes={updateVotes}
+                inputHeight="2rem"
+              />
+            );
+          } else {
+            return null;
+          }
+        }}
+      </AuthContext.Consumer>
     </StyledArticle>
   );
 };
