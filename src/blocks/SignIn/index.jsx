@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { Warning } from 'styled-icons/icomoon';
 import Section from '../../elements/Section';
@@ -39,7 +39,7 @@ const Buttons = styled.div`
   margin-top: 4rem;
 `;
 
-const Error = styled.div`
+const ErrorMessage = styled.div`
   display: flex;
   align-items: center;
   margin-top: 4rem;
@@ -59,59 +59,110 @@ const StyledWarning = styled(Warning)`
   color: rgba(255, 86, 48, 1);
 `;
 
+const WelcomeMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+  padding: 1.5rem;
+  font-size: 1.6rem;
+`;
+
 class SignIn extends Component {
   state = {
     username: '',
+    signedIn: true, // temporary, perhaps add loading feature also?
     error: '',
   };
 
   render() {
-    const { username, error } = this.state;
+    const { username, signedIn, error } = this.state;
 
     return (
       <Section inputWidth="80%" inputMargin="0 auto">
-        <Form onSubmit={this.handleSubmit}>
-          <Input
-            type="text"
-            id="username"
-            value={username}
-            onChange={this.handleChange}
-            placeholder="Username"
-            autoFocus
-          />
-          <Buttons>
-            <Button
-              type="submit"
-              borderColor={'rgba(0, 0, 0, 0.24)'}
-              borderColorHover={'rgba(0, 0, 0, 0.54)'}
-              color={'rgba(0, 0, 0, 0.54)'}
-              marginRight={'1.5rem'}
-              onClick={this.handleClick}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              backgroundColorHover={'rgba(3, 168, 124, 1)'}
-              borderColor={'rgba(3, 168, 124, 1)'}
-              color={'rgba(3, 168, 124, 1)'}
-              colorHover={'#fff'}
-              backgroundColorSelect={'rgba(3, 168, 124, 0.8)'}
-              borderColorSelect={'rgba(3, 168, 124, 0.8)'}
-            >
-              Sign In
-            </Button>
-          </Buttons>
-          {error && (
-            <Error>
-              <StyledWarning />
-              <p>{error}</p>
-            </Error>
-          )}
-        </Form>
+        {signedIn
+          ? this.renderLogOutContent()
+          : this.renderSignInContent(username, error)}
       </Section>
     );
   }
+
+  renderSignInContent = (username, error) => {
+    return (
+      <Form onSubmit={this.signIn}>
+        <Input
+          type="text"
+          id="username"
+          value={username}
+          onChange={this.handleChange}
+          placeholder="Username"
+          autoFocus
+        />
+        <Buttons>
+          <Button
+            type="submit"
+            borderColor={'rgba(0, 0, 0, 0.24)'}
+            borderColorHover={'rgba(0, 0, 0, 0.54)'}
+            color={'rgba(0, 0, 0, 0.54)'}
+            marginRight={'1.5rem'}
+            onClick={this.handleClick}
+          >
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            backgroundColorHover={'rgba(3, 168, 124, 1)'}
+            borderColor={'rgba(3, 168, 124, 1)'}
+            color={'rgba(3, 168, 124, 1)'}
+            colorHover={'#fff'}
+            backgroundColorSelect={'rgba(3, 168, 124, 0.8)'}
+            borderColorSelect={'rgba(3, 168, 124, 0.8)'}
+          >
+            Sign In
+          </Button>
+        </Buttons>
+        {error && (
+          <ErrorMessage>
+            <StyledWarning />
+            <p>{error}</p>
+          </ErrorMessage>
+        )}
+      </Form>
+    );
+  };
+
+  renderLogOutContent = () => {
+    return (
+      <Fragment>
+        <WelcomeMessage>
+          <p>Congratulations! You're now signed in.</p>
+        </WelcomeMessage>
+        <Buttons>
+          <Button
+            type="submit"
+            borderColor={'rgba(0, 0, 0, 0.24)'}
+            borderColorHover={'rgba(0, 0, 0, 0.54)'}
+            color={'rgba(0, 0, 0, 0.54)'}
+            marginRight={'1.5rem'}
+            onClick={this.handleClick}
+          >
+            Browse Articles
+          </Button>
+          <Button
+            type="submit"
+            backgroundColorHover={'rgba(3, 168, 124, 1)'}
+            borderColor={'rgba(3, 168, 124, 1)'}
+            color={'rgba(3, 168, 124, 1)'}
+            colorHover={'#fff'}
+            backgroundColorSelect={'rgba(3, 168, 124, 0.8)'}
+            borderColorSelect={'rgba(3, 168, 124, 0.8)'}
+            onClick={this.signOut}
+          >
+            Sign Out
+          </Button>
+        </Buttons>
+      </Fragment>
+    );
+  };
 
   handleChange = event => {
     const { value, id } = event.target;
@@ -124,7 +175,7 @@ class SignIn extends Component {
     this.props.history.push('/');
   };
 
-  handleSubmit = event => {
+  signIn = event => {
     event.preventDefault();
     const { username } = this.state;
 
@@ -144,6 +195,10 @@ class SignIn extends Component {
         console.log('Error', error);
         this.setState({ error });
       });
+  };
+
+  signOut = () => {
+    console.log('Sign Out');
   };
 }
 
