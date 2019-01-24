@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { SpinLoader } from 'react-css-loaders';
+import throttle from 'lodash.throttle';
 import Article from '../Article';
 import Sort from '../Sort';
 import Section from '../../elements/Section';
@@ -19,7 +20,9 @@ const RightSide = styled.div`
 export default class Articles extends Component {
   state = {
     articles: [],
+    page: 1,
     loading: true,
+    hasMore: true,
     error: '',
   };
 
@@ -56,6 +59,8 @@ export default class Articles extends Component {
     } else if (this.props.match.path === '/topic/:slug') {
       this.loadArticlesByTopic(this.props.match.params.slug);
     }
+
+    window.addEventListener('scroll', throttle(this.handleScroll, 1000));
   }
 
   componentDidUpdate(prevProps) {
@@ -68,14 +73,19 @@ export default class Articles extends Component {
     }
   }
 
-  loadArticles = sortCriteria => {
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  loadArticles = (page, sortCriteria) => {
     api
-      .getArticles(sortCriteria)
+      .getArticles(page, sortCriteria)
       .then(articles =>
-        this.setState({
-          articles,
+        this.setState(state => ({
+          articles: [...state.articles, ...articles],
+          page: state.page + 1,
           loading: false,
-        })
+        }))
       )
       .catch(error => this.setState({ error, loading: false }));
   };
@@ -121,6 +131,18 @@ export default class Articles extends Component {
       this.loadArticles(sortCriteria);
     } else if (this.props.match.path === '/topic/:slug') {
       this.loadArticlesByTopic(this.props.match.params.slug, sortCriteria);
+    }
+  };
+
+  handleScroll = () => {
+    console.log('Scrolling');
+
+    if (
+      window.innerHeight + window.scrollY >=
+      document.body.offsetHeight - 500
+    ) {
+      console.log('Fetching more...');
+      this.loadArticles(this.state.page + 1);
     }
   };
 }

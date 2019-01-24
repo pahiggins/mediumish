@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'https://nc-news-api-pah.herokuapp.com/api';
 
-export const getArticles = sortCriteria => {
+export const getArticles = (page, sortCriteria) => {
   let url;
 
   if (sortCriteria === 'Date') {
@@ -12,7 +12,7 @@ export const getArticles = sortCriteria => {
   } else if (sortCriteria === 'Votes') {
     url = `${BASE_URL}/articles?sort_ascending=true&sort_by=votes`;
   } else {
-    url = `${BASE_URL}/articles?sort_ascending=true`;
+    url = `${BASE_URL}/articles?p=${page}`;
   }
 
   // Pick up here - need to figure out comment_count. Perhaps the API needs amending?

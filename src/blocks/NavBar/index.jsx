@@ -54,7 +54,7 @@ class NavBar extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // Do something here to update topics array after a new topic has been added.
+    // Make this more performant?
     this.loadTopics();
   }
 
