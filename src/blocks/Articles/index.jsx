@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { SpinLoader } from 'react-css-loaders';
 import Article from '../Article';
-import Filter from '../Filter';
+import Sort from '../Sort';
 import Section from '../../elements/Section';
 import * as api from '../../utils';
 
@@ -11,8 +11,9 @@ const LeftSide = styled.div`
 `;
 
 const RightSide = styled.div`
+  margin-left: 5.6rem;
+  max-width: 32.8rem;
   width: 33.34%;
-  background-color: #f5f5f5;
 `;
 
 export default class Articles extends Component {
@@ -41,7 +42,7 @@ export default class Articles extends Component {
               ))}
             </LeftSide>
             <RightSide>
-              <Filter />
+              <Sort title="Sort" handleSort={this.handleSort} />
             </RightSide>
           </Fragment>
         )}
@@ -67,17 +68,27 @@ export default class Articles extends Component {
     }
   }
 
-  loadArticles = () => {
+  loadArticles = sortCriteria => {
     api
-      .getArticles()
-      .then(articles => this.setState({ articles, loading: false }))
+      .getArticles(sortCriteria)
+      .then(articles =>
+        this.setState({
+          articles,
+          loading: false,
+        })
+      )
       .catch(error => this.setState({ error, loading: false }));
   };
 
   loadArticlesByTopic = topic => {
     api
       .getArticlesByTopic(topic)
-      .then(articles => this.setState({ articles, loading: false }))
+      .then(articles =>
+        this.setState({
+          articles,
+          loading: false,
+        })
+      )
       .catch(error => this.setState({ error, loading: false }));
   };
 
@@ -89,14 +100,27 @@ export default class Articles extends Component {
       .then(updatedArticle => {
         const updatedArticles = articles.map(article => {
           if (article.article_id === updatedArticle.article_id) {
-            return { ...article, votes: updatedArticle.votes };
+            return {
+              ...article,
+              votes: updatedArticle.votes,
+            };
           } else {
             return article;
           }
         });
 
-        this.setState({ articles: updatedArticles });
+        this.setState({
+          articles: updatedArticles,
+        });
       })
       .catch(error => this.setState({ error }));
+  };
+
+  handleSort = sortCriteria => {
+    if (this.props.match.path === '/') {
+      this.loadArticles(sortCriteria);
+    } else if (this.props.match.path === '/topic/:slug') {
+      this.loadArticlesByTopic(this.props.match.params.slug, sortCriteria);
+    }
   };
 }

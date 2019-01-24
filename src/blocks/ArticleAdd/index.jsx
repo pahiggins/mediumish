@@ -13,7 +13,6 @@ const Form = styled.form`
 
 const Input = styled.input`
   font-family: 'Libre Baskerville', serif;
-  margin-bottom: 2rem;
   height: 5.4rem;
   font-size: 4.2rem;
   border: none;
@@ -34,7 +33,7 @@ const Input = styled.input`
 `;
 
 const Select = styled.select`
-  margin-bottom: 2.5rem;
+  margin-top: 2rem;
   height: 4rem;
   border: none;
 
@@ -46,7 +45,7 @@ const Select = styled.select`
 
 const TextArea = styled.textarea`
   font-family: 'Libre Baskerville', serif;
-  margin-bottom: 2rem;
+  margin-top: 2.5rem;
   height: 55vh;
   font-size: 2rem;
   border: none;
@@ -70,6 +69,7 @@ const TextArea = styled.textarea`
 const Buttons = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 2rem;
 `;
 
 class ArticleAdd extends Component {
