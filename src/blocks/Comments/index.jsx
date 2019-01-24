@@ -84,11 +84,11 @@ class Comments extends Component {
       .catch(error => this.setState({ error }));
   };
 
-  addComment = comment => {
+  addComment = (comment, username) => {
     const { articleId } = this.props;
     const { comments } = this.state;
     const newComment = {
-      username: 'cooljmessy', // TODO: Make username dynamic and check correct rendering on page.
+      username,
       body: comment,
     };
 

@@ -87,9 +87,11 @@ const Comment = ({ comment, updateVotes, articleId, deleteComment }) => {
                 updateVotes={updateVotes}
                 inputHeight="2rem"
               />
-              <StyledDeleteForever
-                onClick={() => deleteComment(articleId, comment.comment_id)}
-              />
+              {comment.username === username && (
+                <StyledDeleteForever
+                  onClick={() => deleteComment(articleId, comment.comment_id)}
+                />
+              )}
             </Footer>
           )
         }

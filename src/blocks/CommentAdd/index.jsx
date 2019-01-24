@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import AuthContext from '../App/AuthContext';
 import Button from '../../elements/Button';
 
 const Form = styled.form`
@@ -45,31 +46,35 @@ class CommentAdd extends Component {
     const { comment } = this.state;
 
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <TextArea
-          type="text"
-          id="comment"
-          value={comment}
-          onChange={this.handleChange}
-          placeholder="Add a comment..."
-          rows="5"
-          cols="33"
-        />
-        <Buttons>
-          <Button
-            type="submit"
-            backgroundColorHover={'rgba(3, 168, 124, 1)'}
-            borderColor={'rgba(3, 168, 124, 1)'}
-            color={'rgba(3, 168, 124, 1)'}
-            colorHover={'#fff'}
-            backgroundColorSelect={'rgba(3, 168, 124, 0.8)'}
-            borderColorSelect={'rgba(3, 168, 124, 0.8)'}
-            onClick={() => {}}
-          >
-            Add Comment
-          </Button>
-        </Buttons>
-      </Form>
+      <AuthContext.Consumer>
+        {({ username }) => (
+          <Form onSubmit={e => this.handleSubmit(e, username)}>
+            <TextArea
+              type="text"
+              id="comment"
+              value={comment}
+              onChange={this.handleChange}
+              placeholder="Add a comment..."
+              rows="5"
+              cols="33"
+            />
+            <Buttons>
+              <Button
+                type="submit"
+                backgroundColorHover={'rgba(3, 168, 124, 1)'}
+                borderColor={'rgba(3, 168, 124, 1)'}
+                color={'rgba(3, 168, 124, 1)'}
+                colorHover={'#fff'}
+                backgroundColorSelect={'rgba(3, 168, 124, 0.8)'}
+                borderColorSelect={'rgba(3, 168, 124, 0.8)'}
+                onClick={e => this.handleSubmit(e, username)}
+              >
+                Add Comment
+              </Button>
+            </Buttons>
+          </Form>
+        )}
+      </AuthContext.Consumer>
     );
   }
 
@@ -80,9 +85,9 @@ class CommentAdd extends Component {
     });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event, username) => {
     event.preventDefault();
-    this.props.addComment(this.state.comment);
+    this.props.addComment(this.state.comment, username);
     this.setState({
       comment: '',
     });
