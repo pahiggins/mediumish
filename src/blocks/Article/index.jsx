@@ -81,8 +81,8 @@ const Article = ({
         )} | ${comment_count} comments`}</Details>
       </StyledLink>
       <AuthContext.Consumer>
-        {({ status }) =>
-          status === 'signedIn' && (
+        {({ username }) =>
+          username && (
             <Votes
               votes={votes}
               articleId={article_id}

@@ -15,15 +15,13 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.toggleStatus = () => {
-      this.setState(state => ({
-        status: state.status === 'signedOut' ? 'signedIn' : 'signedOut',
-      }));
+    this.toggleUsername = username => {
+      this.setState({ username });
     };
 
     this.state = {
-      status: 'signedOut',
-      toggleStatus: this.toggleStatus,
+      username: '',
+      toggleUsername: this.toggleUsername,
     };
   }
 

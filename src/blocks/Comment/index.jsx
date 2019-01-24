@@ -77,8 +77,8 @@ const Comment = ({ comment, updateVotes, articleId, deleteComment }) => {
       </Header>
       <P>{comment.body}</P>
       <AuthContext.Consumer>
-        {({ status }) =>
-          status === 'signedIn' && (
+        {({ username }) =>
+          username && (
             <Footer>
               <Votes
                 votes={comment.votes}

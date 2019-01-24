@@ -39,8 +39,8 @@ export default () => {
       </H1>
       <div>
         <AuthContext.Consumer>
-          {({ status }) =>
-            status === 'signedIn' && (
+          {({ username }) =>
+            username && (
               <Link to="/new-article">
                 <StyledNoteAdd size="34.14" />
               </Link>

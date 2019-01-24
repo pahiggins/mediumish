@@ -53,9 +53,9 @@ class ArticleDetails extends Component {
             />
             <P>{article.body}</P>
             <AuthContext.Consumer>
-              {({ status }) => (
+              {({ username }) => (
                 <Fragment>
-                  {status === 'signedIn' && (
+                  {username && (
                     <Votes
                       votes={article.votes}
                       updateVotes={this.updateVotes}
@@ -64,7 +64,7 @@ class ArticleDetails extends Component {
                     />
                   )}
                   <Comments articleId={article.article_id} />
-                  {status === 'signedIn' && (
+                  {username && (
                     <Buttons>
                       <Button
                         type="submit"

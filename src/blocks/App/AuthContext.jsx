@@ -1,8 +1,8 @@
 import React from 'react';
 
 const AuthContext = React.createContext({
-  status: '',
-  toggleStatus: () => {},
+  username: '',
+  toggleUsername: () => {},
 });
 
 export default AuthContext;

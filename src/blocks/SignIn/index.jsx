@@ -70,34 +70,35 @@ const WelcomeMessage = styled.div`
 
 class SignIn extends Component {
   state = {
-    username: '',
+    usernameInput: '',
     error: '',
   };
 
   render() {
-    const { username, error } = this.state;
+    const { usernameInput, error } = this.state;
 
     return (
       <Section inputWidth="80%" inputMargin="0 auto">
         <AuthContext.Consumer>
-          {({ status, toggleStatus }) =>
-            status === 'signedOut'
-              ? this.renderSignInContent(username, error, toggleStatus)
-              : this.renderLogOutContent(toggleStatus)
+          {({ username, toggleUsername }) =>
+            username
+              ? this.renderLogOutContent(toggleUsername)
+              : this.renderSignInContent(usernameInput, error, toggleUsername)
           }
         </AuthContext.Consumer>
       </Section>
     );
   }
 
-  renderSignInContent = (username, error, toggleStatus) => {
+  renderSignInContent = (usernameInput, error, toggleUsername) => {
     return (
-      <Form onSubmit={e => this.signIn(e, toggleStatus)}>
+      <Form onSubmit={e => this.signIn(e, toggleUsername)}>
         <Input
           type="text"
-          id="username"
-          value={username}
+          id="usernameInput"
+          value={usernameInput}
           onChange={this.handleChange}
+          onSubmit={e => this.signIn(e, toggleUsername)}
           placeholder="Username"
           autoFocus
         />
@@ -120,6 +121,7 @@ class SignIn extends Component {
             colorHover={'#fff'}
             backgroundColorSelect={'rgba(3, 168, 124, 0.8)'}
             borderColorSelect={'rgba(3, 168, 124, 0.8)'}
+            onClick={e => this.signIn(e, toggleUsername)}
           >
             Sign In
           </Button>
@@ -134,7 +136,7 @@ class SignIn extends Component {
     );
   };
 
-  renderLogOutContent = toggleStatus => {
+  renderLogOutContent = toggleUsername => {
     return (
       <Fragment>
         <WelcomeMessage>
@@ -159,7 +161,7 @@ class SignIn extends Component {
             colorHover={'#fff'}
             backgroundColorSelect={'rgba(3, 168, 124, 0.8)'}
             borderColorSelect={'rgba(3, 168, 124, 0.8)'}
-            onClick={() => this.signOut(toggleStatus)}
+            onClick={() => this.signOut(toggleUsername)}
           >
             Sign Out
           </Button>
@@ -179,15 +181,15 @@ class SignIn extends Component {
     this.props.history.push('/');
   };
 
-  signIn = (e, toggleStatus) => {
+  signIn = (e, toggleUsername) => {
     e.preventDefault();
-    const { username } = this.state;
+    const { usernameInput } = this.state;
 
     api
-      .validateUser(username)
+      .validateUser(usernameInput)
       .then(user => {
         if (user.username) {
-          toggleStatus();
+          toggleUsername(user.username);
         } else {
           this.setState({
             error: 'The username you entered is incorrect.',
@@ -200,8 +202,8 @@ class SignIn extends Component {
       });
   };
 
-  signOut = toggleStatus => {
-    toggleStatus();
+  signOut = toggleUsername => {
+    toggleUsername('');
   };
 }
 

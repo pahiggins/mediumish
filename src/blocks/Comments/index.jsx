@@ -35,7 +35,7 @@ class Comments extends Component {
           <SpinLoader size={5} color="#ccc" />
         ) : (
           <AuthContext.Consumer>
-            {({ status }) => (
+            {({ username }) => (
               <Fragment>
                 <div>
                   <H3>Comments</H3>
@@ -55,9 +55,7 @@ class Comments extends Component {
                     ))
                   )}
                 </div>
-                {status === 'signedIn' && (
-                  <CommentAdd addComment={this.addComment} />
-                )}
+                {username && <CommentAdd addComment={this.addComment} />}
               </Fragment>
             )}
           </AuthContext.Consumer>
