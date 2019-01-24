@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 import { DeleteForever } from 'styled-icons/material/DeleteForever';
+import AuthContext from '../App/AuthContext';
 import Votes from '../Votes';
 
 const StyledComment = styled.div`
@@ -75,18 +76,24 @@ const Comment = ({ comment, updateVotes, articleId, deleteComment }) => {
         </StyledDate>
       </Header>
       <P>{comment.body}</P>
-      <Footer>
-        <Votes
-          votes={comment.votes}
-          articleId={articleId}
-          commentId={comment.comment_id}
-          updateVotes={updateVotes}
-          inputHeight="2rem"
-        />
-        <StyledDeleteForever
-          onClick={() => deleteComment(articleId, comment.comment_id)}
-        />
-      </Footer>
+      <AuthContext.Consumer>
+        {({ status }) =>
+          status === 'signedIn' && (
+            <Footer>
+              <Votes
+                votes={comment.votes}
+                articleId={articleId}
+                commentId={comment.comment_id}
+                updateVotes={updateVotes}
+                inputHeight="2rem"
+              />
+              <StyledDeleteForever
+                onClick={() => deleteComment(articleId, comment.comment_id)}
+              />
+            </Footer>
+          )
+        }
+      </AuthContext.Consumer>
     </StyledComment>
   );
 };

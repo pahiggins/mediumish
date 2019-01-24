@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { SpinLoader } from 'react-css-loaders';
 import styled from 'styled-components';
+import AuthContext from '../App/AuthContext';
 import UserProfile from '../UserProfile';
 import Comments from '../Comments';
 import Votes from '../Votes';
@@ -51,27 +52,37 @@ class ArticleDetails extends Component {
               createdAt={article.created_at}
             />
             <P>{article.body}</P>
-            <Votes
-              votes={article.votes}
-              updateVotes={this.updateVotes}
-              articleId={article.article_id}
-              inputMarginBottom="2.5rem"
-            />
-            <Comments articleId={article.article_id} />
-            <Buttons>
-              <Button
-                type="submit"
-                backgroundColorHover={'rgba(255, 86, 48, 1)'}
-                borderColor={'rgba(255, 86, 48, 1)'}
-                color={'rgba(255, 86, 48, 1)'}
-                colorHover={'#fff'}
-                backgroundColorSelect={'rgba(255, 86, 48, 0.8)'}
-                borderColorSelect={'rgba(255, 86, 48, 0.8)'}
-                onClick={this.deleteArticleById}
-              >
-                Delete Article
-              </Button>
-            </Buttons>
+            <AuthContext.Consumer>
+              {({ status }) => (
+                <Fragment>
+                  {status === 'signedIn' && (
+                    <Votes
+                      votes={article.votes}
+                      updateVotes={this.updateVotes}
+                      articleId={article.article_id}
+                      inputMarginBottom="2.5rem"
+                    />
+                  )}
+                  <Comments articleId={article.article_id} />
+                  {status === 'signedIn' && (
+                    <Buttons>
+                      <Button
+                        type="submit"
+                        backgroundColorHover={'rgba(255, 86, 48, 1)'}
+                        borderColor={'rgba(255, 86, 48, 1)'}
+                        color={'rgba(255, 86, 48, 1)'}
+                        colorHover={'#fff'}
+                        backgroundColorSelect={'rgba(255, 86, 48, 0.8)'}
+                        borderColorSelect={'rgba(255, 86, 48, 0.8)'}
+                        onClick={this.deleteArticleById}
+                      >
+                        Delete Article
+                      </Button>
+                    </Buttons>
+                  )}
+                </Fragment>
+              )}
+            </AuthContext.Consumer>
           </Fragment>
         )}
       </Section>

@@ -81,20 +81,16 @@ const Article = ({
         )} | ${comment_count} comments`}</Details>
       </StyledLink>
       <AuthContext.Consumer>
-        {({ status }) => {
-          if (status === 'signedIn') {
-            return (
-              <Votes
-                votes={votes}
-                articleId={article_id}
-                updateVotes={updateVotes}
-                inputHeight="2rem"
-              />
-            );
-          } else {
-            return null;
-          }
-        }}
+        {({ status }) =>
+          status === 'signedIn' && (
+            <Votes
+              votes={votes}
+              articleId={article_id}
+              updateVotes={updateVotes}
+              inputHeight="2rem"
+            />
+          )
+        }
       </AuthContext.Consumer>
     </StyledArticle>
   );

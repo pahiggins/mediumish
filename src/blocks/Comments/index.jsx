@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { SpinLoader } from 'react-css-loaders';
 import styled from 'styled-components';
+import AuthContext from '../App/AuthContext';
 import Comment from '../Comment';
 import CommentAdd from '../CommentAdd';
 import Section from '../../elements/Section';
@@ -33,25 +34,33 @@ class Comments extends Component {
         {loading ? (
           <SpinLoader size={5} color="#ccc" />
         ) : (
-          <Fragment>
-            <H3>Comments</H3>
-            <div>
-              {comments.length === 0 ? (
-                <P>Be the first to add a comment...</P>
-              ) : (
-                comments.map(comment => (
-                  <Comment
-                    key={comment.comment_id}
-                    comment={comment}
-                    updateVotes={this.updateVotes}
-                    articleId={this.props.articleId}
-                    deleteComment={this.deleteComment}
-                  />
-                ))
-              )}
-            </div>
-            <CommentAdd addComment={this.addComment} />
-          </Fragment>
+          <AuthContext.Consumer>
+            {({ status }) => (
+              <Fragment>
+                <div>
+                  <H3>Comments</H3>
+                  {comments.length === 0 ? (
+                    <Fragment>
+                      <P>There are no comments for this article.</P>
+                    </Fragment>
+                  ) : (
+                    comments.map(comment => (
+                      <Comment
+                        key={comment.comment_id}
+                        comment={comment}
+                        updateVotes={this.updateVotes}
+                        articleId={this.props.articleId}
+                        deleteComment={this.deleteComment}
+                      />
+                    ))
+                  )}
+                </div>
+                {status === 'signedIn' && (
+                  <CommentAdd addComment={this.addComment} />
+                )}
+              </Fragment>
+            )}
+          </AuthContext.Consumer>
         )}
       </Section>
     );
