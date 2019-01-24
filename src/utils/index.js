@@ -107,3 +107,10 @@ export const validateUser = username => {
     .then(res => res.data)
     .catch(err => err);
 };
+
+export const addTopic = (slug, description) => {
+  return axios
+    .post(`${BASE_URL}/topics`, { slug, description })
+    .then(res => res.data)
+    .catch(err => err);
+};

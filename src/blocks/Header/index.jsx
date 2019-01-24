@@ -42,7 +42,7 @@ export default () => {
           {({ username }) =>
             username && (
               <Link to="/new-article">
-                <StyledNoteAdd size="34.14" />
+                <StyledNoteAdd size="34.14" title="Add Article" />
               </Link>
             )
           }

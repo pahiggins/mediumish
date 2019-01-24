@@ -53,6 +53,10 @@ class MainNav extends Component {
     this.loadTopics();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    // Do something here to update topics array after a new topic has been added.
+  }
+
   loadTopics = () => {
     api
       .getTopics()

@@ -10,6 +10,7 @@ import { capitalizeFirstLetter } from './utils';
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  height: 70vh;
 `;
 
 const Input = styled.input`
@@ -47,7 +48,7 @@ const Select = styled.select`
 const TextArea = styled.textarea`
   font-family: 'Libre Baskerville', serif;
   margin-top: 2.5rem;
-  height: 55vh;
+  height: 75%;
   font-size: 2rem;
   border: none;
   color: rgba(0, 0, 0, 0.84);
@@ -94,7 +95,7 @@ class ArticleAdd extends Component {
               {loading ? (
                 <SpinLoader size={5} color="#ccc" />
               ) : (
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={e => this.handleSubmit(e, username)}>
                   <Input
                     type="text"
                     id="title"
@@ -130,9 +131,19 @@ class ArticleAdd extends Component {
                       borderColorHover={'rgba(0, 0, 0, 0.54)'}
                       color={'rgba(0, 0, 0, 0.54)'}
                       marginRight={'1.5rem'}
-                      onClick={this.handleClick}
+                      onClick={() => this.handleClick('/')}
                     >
                       Cancel
+                    </Button>
+                    <Button
+                      type="button"
+                      borderColor={'rgba(0, 0, 0, 0.24)'}
+                      borderColorHover={'rgba(0, 0, 0, 0.54)'}
+                      color={'rgba(0, 0, 0, 0.54)'}
+                      marginRight={'1.5rem'}
+                      onClick={() => this.handleClick('/new-topic')}
+                    >
+                      Add Topic
                     </Button>
                     <Button
                       type="button"
@@ -142,6 +153,7 @@ class ArticleAdd extends Component {
                       colorHover={'#fff'}
                       backgroundColorSelect={'rgba(3, 168, 124, 0.8)'}
                       borderColorSelect={'rgba(3, 168, 124, 0.8)'}
+                      onClick={e => this.handleSubmit(e, username)}
                     >
                       Publish
                     </Button>
@@ -173,14 +185,13 @@ class ArticleAdd extends Component {
     });
   };
 
-  handleClick = () => {
-    this.props.history.push('/');
+  handleClick = path => {
+    this.props.history.push(path);
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event, username) => {
     event.preventDefault();
     const { title, body, topic } = this.state;
-    const username = 'tickle122'; // TODO: Code this.
 
     api
       .addArticle(title, body, username, topic)

@@ -9,6 +9,7 @@ import Main from '../../elements/Main';
 import Articles from '../Articles';
 import SignIn from '../SignIn';
 import ArticleAdd from '../ArticleAdd';
+import TopicAdd from '../TopicAdd';
 import ArticleDetails from '../ArticleDetails';
 
 class App extends Component {
@@ -37,6 +38,7 @@ class App extends Component {
                 <Route exact path="/" component={Articles} />
                 <Route exact path="/sign-in" component={SignIn} />
                 <Route exact path="/new-article" component={ArticleAdd} />
+                <Route exact path="/new-topic" component={TopicAdd} />
                 <Route exact path="/topic/:slug" component={Articles} />
                 <Route
                   path="/:username/:articleId"
