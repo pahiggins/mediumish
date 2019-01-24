@@ -20,7 +20,7 @@ const StyledLink = styled(Link)`
   }
 `;
 
-class MainNav extends Component {
+class NavBar extends Component {
   state = {
     topics: [],
     error: '',
@@ -55,6 +55,7 @@ class MainNav extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     // Do something here to update topics array after a new topic has been added.
+    this.loadTopics();
   }
 
   loadTopics = () => {
@@ -65,4 +66,4 @@ class MainNav extends Component {
   };
 }
 
-export default MainNav;
+export default NavBar;

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { SpinLoader } from 'react-css-loaders';
 import styled from 'styled-components';
 import AuthContext from '../App/AuthContext';
 import Section from '../../elements/Section';
@@ -70,7 +69,7 @@ class TopicAdd extends Component {
   };
 
   render() {
-    const { slug, description, loading, error } = this.state;
+    const { slug, description, error } = this.state;
 
     return (
       <AuthContext.Consumer>

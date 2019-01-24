@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AuthContext from './AuthContext';
 
 import Header from '../../blocks/Header';
-import MainNav from '../../blocks/MainNav';
+import NavBar from '../../blocks/NavBar';
 import Main from '../../elements/Main';
 import Articles from '../Articles';
 import SignIn from '../SignIn';
@@ -32,7 +32,7 @@ class App extends Component {
         <Fragment>
           <AuthContext.Provider value={this.state}>
             <Header />
-            <MainNav />
+            <NavBar />
             <Main>
               <Switch>
                 <Route exact path="/" component={Articles} />
