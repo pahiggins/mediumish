@@ -78,15 +78,15 @@ class CommentAdd extends Component {
     );
   }
 
-  handleChange = event => {
-    const { value, id } = event.target;
+  handleChange = e => {
+    const { value, id } = e.target;
     this.setState({
       [id]: value,
     });
   };
 
-  handleSubmit = (event, username) => {
-    event.preventDefault();
+  handleSubmit = (e, username) => {
+    e.preventDefault();
     this.props.addComment(this.state.comment, username);
     this.setState({
       comment: '',

@@ -186,10 +186,8 @@ class Articles extends Component {
       this.state.hasMore
     ) {
       if (this.props.match.path === '/') {
-        console.log(this.props.match.path, 'Fetching more for home...');
         this.loadArticles(this.state.page);
       } else if (this.props.match.path === '/topic/:slug') {
-        console.log(this.props.match.path, 'Fetching more for topic...');
         this.loadArticlesByTopic(this.state.page, this.props.match.params.slug);
       }
     }

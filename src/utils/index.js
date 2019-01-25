@@ -54,7 +54,7 @@ export const getTopics = () => {
 
 export const addCommentByArticleId = (articleId, comment) => {
   return axios
-    .post(`${BASE_URL}/articles/${articleId}/comments`, { comment })
+    .post(`${BASE_URL}/articles/${articleId}/comments`, comment)
     .then(res => res.data)
     .catch(err => err);
 };

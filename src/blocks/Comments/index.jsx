@@ -107,9 +107,24 @@ class Comments extends Component {
   };
 
   updateVotes = (articleId, vote, commentId) => {
+    const { comments } = this.state;
+
     api
       .updateVotesByCommentId(articleId, vote, commentId)
-      .then(comment => this.loadComments(articleId))
+      .then(updatedComment => {
+        const updatedComments = comments.map(comment => {
+          if (comment.comment_id === updatedComment.comment_id) {
+            return {
+              ...comment,
+              votes: updatedComment.votes,
+            };
+          } else {
+            return comment;
+          }
+        });
+
+        this.setState({ comments: updatedComments });
+      })
       .catch(error => this.setState({ error }));
   };
 
@@ -123,18 +138,28 @@ class Comments extends Component {
 
     api
       .addCommentByArticleId(articleId, newComment)
-      .then(addedComment => {
+      .then(addedComment =>
         this.setState({
-          comments: [...comments, { ...addedComment }],
-        });
-      })
+          comments: [...comments, addedComment],
+        })
+      )
       .catch(error => this.setState({ error }));
   };
 
   deleteComment = (articleId, commentId) => {
+    const { comments } = this.state;
+
     api
       .deleteCommentByArticleId(articleId, commentId)
-      .then(() => this.loadComments(articleId))
+      .then(() => {
+        const updatedComments = comments.filter(
+          comment => comment.comment_id !== commentId
+        );
+
+        this.setState({
+          comments: updatedComments,
+        });
+      })
       .catch(error => this.setState({ error }));
   };
 
@@ -145,7 +170,6 @@ class Comments extends Component {
       window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
       this.state.hasMore
     ) {
-      console.log('Fetching more comments...');
       this.loadComments(articleId, this.state.page);
     }
   }, 1000);
