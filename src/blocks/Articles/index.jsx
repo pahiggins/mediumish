@@ -130,6 +130,7 @@ class Articles extends Component {
       .getArticlesByTopic(page, topic, sortCriteria, this.signal.token)
       .then(articles => {
         if (articles.length > 0) {
+          console.log(2);
           this.setState(state => ({
             articles: [...state.articles, ...articles],
             page: state.page + 1,
@@ -182,13 +183,18 @@ class Articles extends Component {
   };
 
   handleScroll = throttle(() => {
+    const { loading } = this.state;
+
     if (
       window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
       this.state.hasMore
     ) {
-      if (this.props.match.path === '/') {
+      if (this.props.match.path === '/' && loading === false) {
         this.loadArticles(this.state.page);
-      } else if (this.props.match.path === '/topic/:slug') {
+      } else if (
+        this.props.match.path === '/topic/:slug' &&
+        loading === false
+      ) {
         this.loadArticlesByTopic(this.state.page, this.props.match.params.slug);
       }
     }
