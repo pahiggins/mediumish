@@ -38,7 +38,7 @@ class NavBar extends Component {
             </Li>
             {topics.map(({ slug }) => (
               <Li key={slug}>
-                <StyledLink to={`/topic/${slug}`}>
+                <StyledLink to={`/topic/${slug.toLowerCase()}`}>
                   {slug.toUpperCase()}
                 </StyledLink>
               </Li>

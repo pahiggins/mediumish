@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import * as slugify from 'slug';
 import AuthContext from '../App/AuthContext';
 import Section from '../../elements/Section';
 import Button from '../../elements/Button';
@@ -158,7 +159,7 @@ class TopicAdd extends Component {
 
     if (match.length === 0) {
       api
-        .addTopic(slug, description)
+        .addTopic(slugify(slug), description)
         .then(topic => this.props.history.push(`/new-article`))
         .catch(error => this.setState({ error }));
     } else {

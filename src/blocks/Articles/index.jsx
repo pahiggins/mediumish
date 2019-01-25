@@ -9,6 +9,10 @@ import Section from '../../elements/Section';
 import * as api from '../../utils';
 
 const LeftSide = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 66.66%;
 `;
 
@@ -16,6 +20,10 @@ const RightSide = styled.div`
   margin-left: 5.6rem;
   max-width: 32.8rem;
   width: 33.34%;
+`;
+
+const PlaceholderText = styled.p`
+  font-size: 1.6rem;
 `;
 
 class Articles extends Component {
@@ -34,11 +42,11 @@ class Articles extends Component {
 
     return (
       <Section flexDirection="row">
-        {loading ? (
-          <SpinLoader size={5} color="#ccc" />
-        ) : (
-          <Fragment>
-            <LeftSide>
+        <LeftSide>
+          {loading ? (
+            <SpinLoader size={5} color="#ccc" />
+          ) : (
+            <Fragment>
               {articles.map(article => (
                 <Article
                   key={article.article_id}
@@ -46,12 +54,17 @@ class Articles extends Component {
                   updateVotes={this.updateVotes}
                 />
               ))}
-            </LeftSide>
-            <RightSide>
-              <Sort title="Sort" handleSort={this.handleSort} />
-            </RightSide>
-          </Fragment>
-        )}
+              {articles.length === 0 && (
+                <PlaceholderText>
+                  There are no articles for this topic.
+                </PlaceholderText>
+              )}
+            </Fragment>
+          )}
+        </LeftSide>
+        <RightSide>
+          <Sort title="Sort" handleSort={this.handleSort} />
+        </RightSide>
       </Section>
     );
   }
@@ -68,16 +81,19 @@ class Articles extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.match.url !== this.props.match.url) {
-      this.setState({ articles: [], page: 1, hasMore: true }, () => {
-        if (this.props.match.path === '/') {
-          this.loadArticles(this.state.page);
-        } else if (this.props.match.path === '/topic/:slug') {
-          this.loadArticlesByTopic(
-            this.state.page,
-            this.props.match.params.slug
-          );
+      this.setState(
+        { articles: [], page: 1, loading: true, hasMore: true },
+        () => {
+          if (this.props.match.path === '/') {
+            this.loadArticles(this.state.page);
+          } else if (this.props.match.path === '/topic/:slug') {
+            this.loadArticlesByTopic(
+              this.state.page,
+              this.props.match.params.slug
+            );
+          }
         }
-      });
+      );
     }
   }
 
