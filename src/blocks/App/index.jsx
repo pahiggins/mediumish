@@ -41,6 +41,7 @@ class App extends Component {
                 <Route exact path="/new-topic" component={TopicAdd} />
                 <Route exact path="/topic/:slug" component={Articles} />
                 <Route
+                  exact
                   path="/:username/:articleId"
                   component={ArticleDetails}
                 />

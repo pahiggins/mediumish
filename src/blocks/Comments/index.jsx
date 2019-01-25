@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { SpinLoader } from 'react-css-loaders';
+import throttle from 'lodash.throttle';
+import axios from 'axios';
 import styled from 'styled-components';
 import AuthContext from '../App/AuthContext';
 import Comment from '../Comment';
@@ -20,6 +22,8 @@ const P = styled.p`
 `;
 
 class Comments extends Component {
+  signal = axios.CancelToken.source();
+
   state = {
     comments: [],
     page: 1,
@@ -69,14 +73,21 @@ class Comments extends Component {
   componentDidMount() {
     const { articleId } = this.props;
 
-    this.loadComments(articleId);
+    this.loadComments(articleId, this.state.page);
+
+    window.addEventListener('scroll', this.handleScroll);
   }
 
-  loadComments = articleId => {
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+    this.signal.cancel('API is being canceled');
+  }
+
+  loadComments = (articleId, page) => {
     api
-      .getCommentsByArticleId(articleId)
+      .getCommentsByArticleId(articleId, page, this.signal.token)
       .then(comments => {
-        if (comments.length > 1) {
+        if (comments.length > 0) {
           this.setState(state => ({
             comments: [...state.comments, ...comments],
             page: state.page + 1,
@@ -86,7 +97,13 @@ class Comments extends Component {
           this.setState({ loading: false, hasMore: false });
         }
       })
-      .catch(error => this.setState({ error, loading: false }));
+      .catch(error => {
+        if (axios.isCancel(error)) {
+          console.log('Error: ', error.message);
+        } else {
+          this.setState({ error, loading: false });
+        }
+      });
   };
 
   updateVotes = (articleId, vote, commentId) => {
@@ -120,6 +137,18 @@ class Comments extends Component {
       .then(() => this.loadComments(articleId))
       .catch(error => this.setState({ error }));
   };
+
+  handleScroll = throttle(() => {
+    const { articleId } = this.props;
+
+    if (
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
+      this.state.hasMore
+    ) {
+      console.log('Fetching more comments...');
+      this.loadComments(articleId, this.state.page);
+    }
+  }, 1000);
 }
 
 export default Comments;

@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import styled from 'styled-components';
 import { SpinLoader } from 'react-css-loaders';
+import axios from 'axios';
 import throttle from 'lodash.throttle';
+import styled from 'styled-components';
 import Article from '../Article';
 import Sort from '../Sort';
 import Section from '../../elements/Section';
@@ -17,7 +18,9 @@ const RightSide = styled.div`
   width: 33.34%;
 `;
 
-export default class Articles extends Component {
+class Articles extends Component {
+  signal = axios.CancelToken.source();
+
   state = {
     articles: [],
     page: 1,
@@ -60,7 +63,7 @@ export default class Articles extends Component {
       this.loadArticlesByTopic(this.state.page, this.props.match.params.slug);
     }
 
-    window.addEventListener('scroll', throttle(this.handleScroll, 1000));
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   componentDidUpdate(prevProps) {
@@ -79,15 +82,15 @@ export default class Articles extends Component {
   }
 
   componentWillUnmount() {
-    console.log('Unmounted');
     window.removeEventListener('scroll', this.handleScroll);
+    this.signal.cancel('API is being canceled');
   }
 
   loadArticles = (page, sortCriteria) => {
     api
-      .getArticles(page, sortCriteria)
+      .getArticles(page, sortCriteria, this.signal.token)
       .then(articles => {
-        if (articles.length > 1) {
+        if (articles.length > 0) {
           this.setState(state => ({
             articles: [...state.articles, ...articles],
             page: state.page + 1,
@@ -97,14 +100,20 @@ export default class Articles extends Component {
           this.setState({ hasMore: false });
         }
       })
-      .catch(error => this.setState({ error, loading: false }));
+      .catch(error => {
+        if (axios.isCancel(error)) {
+          console.log('Error: ', error.message);
+        } else {
+          this.setState({ error, loading: false });
+        }
+      });
   };
 
   loadArticlesByTopic = (page, topic) => {
     api
-      .getArticlesByTopic(page, topic)
+      .getArticlesByTopic(page, topic, this.signal.token)
       .then(articles => {
-        if (articles.length > 1) {
+        if (articles.length > 0) {
           this.setState(state => ({
             articles: [...state.articles, ...articles],
             page: state.page + 1,
@@ -114,7 +123,13 @@ export default class Articles extends Component {
           this.setState({ hasMore: false });
         }
       })
-      .catch(error => this.setState({ error, loading: false }));
+      .catch(error => {
+        if (axios.isCancel(error)) {
+          console.log('Error: ', error.message);
+        } else {
+          this.setState({ error, loading: false });
+        }
+      });
   };
 
   updateVotes = (articleId, vote) => {
@@ -149,21 +164,20 @@ export default class Articles extends Component {
     }
   };
 
-  handleScroll = () => {
+  handleScroll = throttle(() => {
     if (
       window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
       this.state.hasMore
     ) {
       if (this.props.match.path === '/') {
         console.log(this.props.match.path, 'Fetching more for home...');
-        this.loadArticles(this.state.page + 1);
+        this.loadArticles(this.state.page);
       } else if (this.props.match.path === '/topic/:slug') {
         console.log(this.props.match.path, 'Fetching more for topic...');
-        this.loadArticlesByTopic(
-          this.state.page + 1,
-          this.props.match.params.slug
-        );
+        this.loadArticlesByTopic(this.state.page, this.props.match.params.slug);
       }
     }
-  };
+  }, 1000);
 }
+
+export default Articles;

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'https://nc-news-api-pah.herokuapp.com/api';
 
-export const getArticles = (page, sortCriteria) => {
+export const getArticles = (page, sortCriteria, cancelToken) => {
   let url;
 
   if (sortCriteria === 'Date') {
@@ -18,16 +18,24 @@ export const getArticles = (page, sortCriteria) => {
   // Pick up here - need to figure out comment_count. Perhaps the API needs amending?
 
   return axios
-    .get(url)
+    .get(url, {
+      cancelToken,
+    })
     .then(res => res.data)
-    .catch(err => err);
+    .catch(err => {
+      throw err;
+    });
 };
 
-export const getArticlesByTopic = (page, topic) => {
+export const getArticlesByTopic = (page, topic, cancelToken) => {
   return axios
-    .get(`${BASE_URL}/topics/${topic}/articles?p=${page}`)
+    .get(`${BASE_URL}/topics/${topic}/articles?p=${page}`, {
+      cancelToken,
+    })
     .then(res => res.data)
-    .catch(err => err);
+    .catch(err => {
+      throw err;
+    });
 };
 
 export const getArticleById = articleId => {
@@ -46,14 +54,16 @@ export const getTopics = () => {
 
 export const addCommentByArticleId = (articleId, comment) => {
   return axios
-    .post(`${BASE_URL}/articles/${articleId}/comments`, comment)
+    .post(`${BASE_URL}/articles/${articleId}/comments`, { comment })
     .then(res => res.data)
     .catch(err => err);
 };
 
-export const getCommentsByArticleId = articleId => {
+export const getCommentsByArticleId = (articleId, page, cancelToken) => {
   return axios
-    .get(`${BASE_URL}/articles/${articleId}/comments`)
+    .get(`${BASE_URL}/articles/${articleId}/comments?p=${page}`, {
+      cancelToken,
+    })
     .then(res => res.data)
     .catch(err => err);
 };
