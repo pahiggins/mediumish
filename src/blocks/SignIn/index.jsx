@@ -70,7 +70,7 @@ const WelcomeMessage = styled.div`
 
 class SignIn extends Component {
   state = {
-    usernameInput: '',
+    usernameInput: 'tickle122',
     error: '',
   };
 
