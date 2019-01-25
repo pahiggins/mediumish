@@ -55,9 +55,9 @@ export default class Articles extends Component {
 
   componentDidMount() {
     if (this.props.match.path === '/') {
-      this.loadArticles();
+      this.loadArticles(this.state.page);
     } else if (this.props.match.path === '/topic/:slug') {
-      this.loadArticlesByTopic(this.props.match.params.slug);
+      this.loadArticlesByTopic(this.state.page, this.props.match.params.slug);
     }
 
     window.addEventListener('scroll', throttle(this.handleScroll, 1000));
@@ -65,40 +65,55 @@ export default class Articles extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.match.url !== this.props.match.url) {
-      if (this.props.match.path === '/') {
-        this.loadArticles();
-      } else if (this.props.match.path === '/topic/:slug') {
-        this.loadArticlesByTopic(this.props.match.params.slug);
-      }
+      this.setState({ articles: [], page: 1, hasMore: true }, () => {
+        if (this.props.match.path === '/') {
+          this.loadArticles(this.state.page);
+        } else if (this.props.match.path === '/topic/:slug') {
+          this.loadArticlesByTopic(
+            this.state.page,
+            this.props.match.params.slug
+          );
+        }
+      });
     }
   }
 
   componentWillUnmount() {
+    console.log('Unmounted');
     window.removeEventListener('scroll', this.handleScroll);
   }
 
   loadArticles = (page, sortCriteria) => {
     api
       .getArticles(page, sortCriteria)
-      .then(articles =>
-        this.setState(state => ({
-          articles: [...state.articles, ...articles],
-          page: state.page + 1,
-          loading: false,
-        }))
-      )
+      .then(articles => {
+        if (articles.length > 1) {
+          this.setState(state => ({
+            articles: [...state.articles, ...articles],
+            page: state.page + 1,
+            loading: false,
+          }));
+        } else {
+          this.setState({ hasMore: false });
+        }
+      })
       .catch(error => this.setState({ error, loading: false }));
   };
 
-  loadArticlesByTopic = topic => {
+  loadArticlesByTopic = (page, topic) => {
     api
-      .getArticlesByTopic(topic)
-      .then(articles =>
-        this.setState({
-          articles,
-          loading: false,
-        })
-      )
+      .getArticlesByTopic(page, topic)
+      .then(articles => {
+        if (articles.length > 1) {
+          this.setState(state => ({
+            articles: [...state.articles, ...articles],
+            page: state.page + 1,
+            loading: false,
+          }));
+        } else {
+          this.setState({ hasMore: false });
+        }
+      })
       .catch(error => this.setState({ error, loading: false }));
   };
 
@@ -135,14 +150,20 @@ export default class Articles extends Component {
   };
 
   handleScroll = () => {
-    console.log('Scrolling');
-
     if (
-      window.innerHeight + window.scrollY >=
-      document.body.offsetHeight - 500
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
+      this.state.hasMore
     ) {
-      console.log('Fetching more...');
-      this.loadArticles(this.state.page + 1);
+      if (this.props.match.path === '/') {
+        console.log(this.props.match.path, 'Fetching more for home...');
+        this.loadArticles(this.state.page + 1);
+      } else if (this.props.match.path === '/topic/:slug') {
+        console.log(this.props.match.path, 'Fetching more for topic...');
+        this.loadArticlesByTopic(
+          this.state.page + 1,
+          this.props.match.params.slug
+        );
+      }
     }
   };
 }

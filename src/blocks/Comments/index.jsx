@@ -22,7 +22,9 @@ const P = styled.p`
 class Comments extends Component {
   state = {
     comments: [],
+    page: 1,
     loading: true,
+    hasMore: true,
     error: '',
   };
 
@@ -73,7 +75,17 @@ class Comments extends Component {
   loadComments = articleId => {
     api
       .getCommentsByArticleId(articleId)
-      .then(comments => this.setState({ comments, loading: false }))
+      .then(comments => {
+        if (comments.length > 1) {
+          this.setState(state => ({
+            comments: [...state.comments, ...comments],
+            page: state.page + 1,
+            loading: false,
+          }));
+        } else {
+          this.setState({ loading: false, hasMore: false });
+        }
+      })
       .catch(error => this.setState({ error, loading: false }));
   };
 

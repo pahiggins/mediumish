@@ -23,9 +23,9 @@ export const getArticles = (page, sortCriteria) => {
     .catch(err => err);
 };
 
-export const getArticlesByTopic = topic => {
+export const getArticlesByTopic = (page, topic) => {
   return axios
-    .get(`${BASE_URL}/topics/${topic}/articles?sort_ascending=true`)
+    .get(`${BASE_URL}/topics/${topic}/articles?p=${page}`)
     .then(res => res.data)
     .catch(err => err);
 };
