@@ -2,23 +2,9 @@ import axios from 'axios';
 
 const BASE_URL = 'https://nc-news-api-pah.herokuapp.com/api';
 
-export const getArticles = (page, sortCriteria, cancelToken) => {
-  let url;
-
-  if (sortCriteria === 'Date') {
-    url = `${BASE_URL}/articles?sort_ascending=true&sort_by=created_at`;
-  } else if (sortCriteria === 'Comments') {
-    url = `${BASE_URL}/articles?sort_ascending=true&sort_by=comment_count`;
-  } else if (sortCriteria === 'Votes') {
-    url = `${BASE_URL}/articles?sort_ascending=true&sort_by=votes`;
-  } else {
-    url = `${BASE_URL}/articles?p=${page}`;
-  }
-
-  // Pick up here - need to figure out comment_count. Perhaps the API needs amending?
-
+export const getArticles = (page, sortCriteria = 'created_at', cancelToken) => {
   return axios
-    .get(url, {
+    .get(`${BASE_URL}/articles?sort_by=${sortCriteria}&p=${page}`, {
       cancelToken,
     })
     .then(res => res.data)
@@ -27,11 +13,19 @@ export const getArticles = (page, sortCriteria, cancelToken) => {
     });
 };
 
-export const getArticlesByTopic = (page, topic, cancelToken) => {
+export const getArticlesByTopic = (
+  page,
+  topic,
+  sortCriteria = 'created_at',
+  cancelToken
+) => {
   return axios
-    .get(`${BASE_URL}/topics/${topic}/articles?p=${page}`, {
-      cancelToken,
-    })
+    .get(
+      `${BASE_URL}/topics/${topic}/articles?sort_by=${sortCriteria}&p=${page}`,
+      {
+        cancelToken,
+      }
+    )
     .then(res => res.data)
     .catch(err => {
       throw err;

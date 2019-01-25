@@ -33,9 +33,11 @@ class Sort extends Component {
           <h2>{this.props.title.toUpperCase()}</h2>
         </Header>
         <Ul>
-          <li onClick={() => this.props.handleSort('Date')}>BY DATE</li>
-          <li onClick={() => this.props.handleSort('Comments')}>BY COMMENTS</li>
-          <li onClick={() => this.props.handleSort('Votes')}>BY VOTES</li>
+          <li onClick={() => this.props.handleSort('created_at')}>BY DATE</li>
+          <li onClick={() => this.props.handleSort('comment_count')}>
+            BY COMMENTS
+          </li>
+          <li onClick={() => this.props.handleSort('votes')}>BY VOTES</li>
         </Ul>
       </Fragment>
     );

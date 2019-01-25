@@ -102,7 +102,7 @@ class Articles extends Component {
     this.signal.cancel('API is being canceled');
   }
 
-  loadArticles = (page, sortCriteria) => {
+  loadArticles = (page, sortCriteria = 'created_at') => {
     api
       .getArticles(page, sortCriteria, this.signal.token)
       .then(articles => {
@@ -125,9 +125,9 @@ class Articles extends Component {
       });
   };
 
-  loadArticlesByTopic = (page, topic) => {
+  loadArticlesByTopic = (page, topic, sortCriteria = 'created_at') => {
     api
-      .getArticlesByTopic(page, topic, this.signal.token)
+      .getArticlesByTopic(page, topic, sortCriteria, this.signal.token)
       .then(articles => {
         if (articles.length > 0) {
           this.setState(state => ({
@@ -173,11 +173,12 @@ class Articles extends Component {
   };
 
   handleSort = sortCriteria => {
-    if (this.props.match.path === '/') {
-      this.loadArticles(sortCriteria);
-    } else if (this.props.match.path === '/topic/:slug') {
-      this.loadArticlesByTopic(this.props.match.params.slug, sortCriteria);
-    }
+    // if (this.props.match.path === '/') {
+    //   this.loadArticles(1, sortCriteria);
+    // } else if (this.props.match.path === '/topic/:slug') {
+    //   this.loadArticlesByTopic(1, this.props.match.params.slug, sortCriteria);
+    // }
+    // TODO: Fix this.
   };
 
   handleScroll = throttle(() => {
