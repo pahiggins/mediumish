@@ -195,9 +195,13 @@ class ArticleAdd extends Component {
 
     api
       .addArticle(title, body, username, topic)
-      .then(({ article_id }) =>
-        this.props.history.push(`/${username}/${article_id}`)
-      )
+      .then(article => {
+        if (article.title === title) {
+          this.props.history.push(`/${username}/${article.article_id}`);
+        } else {
+          this.setState({ error: 'Unable to add article' });
+        }
+      })
       .catch(error => this.setState({ error }));
   };
 }

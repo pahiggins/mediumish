@@ -130,7 +130,6 @@ class Articles extends Component {
       .getArticlesByTopic(page, topic, sortCriteria, this.signal.token)
       .then(articles => {
         if (articles.length > 0) {
-          console.log(2);
           this.setState(state => ({
             articles: [...state.articles, ...articles],
             page: state.page + 1,
