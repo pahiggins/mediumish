@@ -184,7 +184,7 @@ class SignIn extends Component {
   };
 
   handleClick = () => {
-    this.props.history.push('/art');
+    this.props.history.push('/');
   };
 
   signIn = (e, toggleUsername) => {
