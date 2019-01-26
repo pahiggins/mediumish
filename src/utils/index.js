@@ -4,32 +4,15 @@ import slug from 'slug';
 const BASE_URL = 'https://nc-news-api-pah.herokuapp.com/api';
 
 export const getArticles = async (
-  page,
-  sortCriteria = 'created_at',
-  cancelToken
-) => {
-  const { data } = await axios.get(
-    `${BASE_URL}/articles?sort_by=${sortCriteria}&p=${page}`,
-    {
-      cancelToken,
-    }
-  );
-
-  return data;
-};
-
-export const getArticlesByTopic = async (
-  page,
   topic,
+  page,
   sortCriteria = 'created_at',
   cancelToken
 ) => {
-  const { data } = await axios.get(
-    `${BASE_URL}/topics/${topic}/articles?sort_by=${sortCriteria}&p=${page}`,
-    {
-      cancelToken,
-    }
-  );
+  const url = topic
+    ? `${BASE_URL}/topics/${topic}/articles?sort_by=${sortCriteria}&p=${page}`
+    : `${BASE_URL}/articles?sort_by=${sortCriteria}&p=${page}`;
+  const { data } = await axios.get(url, { cancelToken });
 
   return data;
 };

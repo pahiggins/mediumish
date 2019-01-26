@@ -72,11 +72,9 @@ class Articles extends Component {
   }
 
   componentDidMount() {
-    if (this.props.match.path === '/') {
-      this.loadArticles(this.state.page);
-    } else if (this.props.match.path === '/topic/:slug') {
-      this.loadArticlesByTopic(this.state.page, this.props.match.params.slug);
-    }
+    this.props.match.params.slug
+      ? this.loadArticles(this.props.match.params.slug, this.state.page)
+      : this.loadArticles(null, this.state.page);
 
     window.addEventListener('scroll', this.handleScroll);
   }
@@ -86,14 +84,9 @@ class Articles extends Component {
       this.setState(
         { articles: [], page: 1, loading: true, hasMore: true },
         () => {
-          if (this.props.match.path === '/') {
-            this.loadArticles(this.state.page);
-          } else if (this.props.match.path === '/topic/:slug') {
-            this.loadArticlesByTopic(
-              this.state.page,
-              this.props.match.params.slug
-            );
-          }
+          this.props.match.params.slug
+            ? this.loadArticles(this.props.match.params.slug, this.state.page)
+            : this.loadArticles(null, this.state.page);
         }
       );
     }
@@ -104,9 +97,9 @@ class Articles extends Component {
     this.signal.cancel('API is being canceled');
   }
 
-  loadArticles = (page, sortCriteria = 'created_at') => {
+  loadArticles = (topic, page, sortCriteria = 'created_at') => {
     api
-      .getArticles(page, sortCriteria, this.signal.token)
+      .getArticles(topic, page, sortCriteria, this.signal.token)
       .then(articles => {
         if (articles.length > 0) {
           this.setState(state => ({
@@ -120,32 +113,9 @@ class Articles extends Component {
       })
       .catch(error => {
         if (axios.isCancel(error)) {
-          console.log('Error: ', error.message);
+          // console.log('Error: ', error.message);
         } else {
-          this.setState({ error, loading: false });
-        }
-      });
-  };
-
-  loadArticlesByTopic = (page, topic, sortCriteria = 'created_at') => {
-    api
-      .getArticlesByTopic(page, topic, sortCriteria, this.signal.token)
-      .then(articles => {
-        if (articles.length > 0) {
-          this.setState(state => ({
-            articles: [...state.articles, ...articles],
-            page: state.page + 1,
-            loading: false,
-          }));
-        } else {
-          this.setState({ hasMore: false });
-        }
-      })
-      .catch(error => {
-        if (axios.isCancel(error)) {
-          console.log('Error: ', error.message);
-        } else {
-          this.setState({ error, loading: false });
+          this.setState({ error, loading: false, hasMore: false });
         }
       });
   };
@@ -190,12 +160,12 @@ class Articles extends Component {
       this.state.hasMore
     ) {
       if (this.props.match.path === '/' && loading === false) {
-        this.loadArticles(this.state.page);
+        this.loadArticles(null, this.state.page);
       } else if (
         this.props.match.path === '/topic/:slug' &&
         loading === false
       ) {
-        this.loadArticlesByTopic(this.state.page, this.props.match.params.slug);
+        this.loadArticles(this.props.match.params.slug, this.state.page);
       }
     }
   }, 1000);
