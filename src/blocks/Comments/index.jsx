@@ -16,11 +16,6 @@ const H3 = styled.h3`
   color: rgba(0, 0, 0, 0.68);
 `;
 
-const P = styled.p`
-  font-size: 1.4rem;
-  color: rgba(0, 0, 0, 0.84);
-`;
-
 class Comments extends Component {
   signal = axios.CancelToken.source();
 

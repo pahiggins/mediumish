@@ -35,6 +35,7 @@ class Articles extends Component {
     page: 1,
     loading: true,
     hasMore: true,
+    sortCriteria: 'created_at',
     error: '',
   };
 
@@ -82,7 +83,14 @@ class Articles extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.match.url !== this.props.match.url) {
       this.setState(
-        { articles: [], page: 1, loading: true, hasMore: true },
+        {
+          articles: [],
+          page: 1,
+          loading: true,
+          hasMore: true,
+          sortCriteria: 'created_at',
+          error: '',
+        },
         () => {
           this.props.match.params.slug
             ? this.loadArticles(this.props.match.params.slug, this.state.page)
@@ -97,9 +105,9 @@ class Articles extends Component {
     this.signal.cancel('API is being canceled');
   }
 
-  loadArticles = (topic, page, sortCriteria = 'created_at') => {
+  loadArticles = (topic, page, sortCriteria = 'created_at', limit = 10) => {
     api
-      .getArticles(topic, page, sortCriteria, this.signal.token)
+      .getArticles(topic, page, sortCriteria, limit, this.signal.token)
       .then(articles => {
         if (articles.length > 0) {
           this.setState(state => ({
@@ -144,16 +152,29 @@ class Articles extends Component {
   };
 
   handleSort = sortCriteria => {
-    // if (this.props.match.path === '/') {
-    //   this.loadArticles(1, sortCriteria);
-    // } else if (this.props.match.path === '/topic/:slug') {
-    //   this.loadArticlesByTopic(1, this.props.match.params.slug, sortCriteria);
-    // }
-    // TODO: Fix this.
+    this.setState(
+      {
+        articles: [],
+        page: 1,
+        loading: true,
+        hasMore: true,
+        sortCriteria,
+        error: '',
+      },
+      () => {
+        this.props.match.params.slug
+          ? this.loadArticles(
+              this.props.match.params.slug,
+              this.state.page,
+              this.state.sortCriteria
+            )
+          : this.loadArticles(null, this.state.page, this.state.sortCriteria);
+      }
+    );
   };
 
   handleScroll = throttle(() => {
-    const { loading, hasMore } = this.state;
+    const { page, loading, hasMore, sortCriteria } = this.state;
 
     if (
       window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
@@ -161,12 +182,12 @@ class Articles extends Component {
       hasMore
     ) {
       if (this.props.match.path === '/' && loading === false) {
-        this.loadArticles(null, this.state.page);
+        this.loadArticles(null, page, sortCriteria);
       } else if (
         this.props.match.path === '/topic/:slug' &&
         loading === false
       ) {
-        this.loadArticles(this.props.match.params.slug, this.state.page);
+        this.loadArticles(this.props.match.params.slug, page, sortCriteria);
       }
     }
   }, 1000);

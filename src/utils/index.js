@@ -7,11 +7,12 @@ export const getArticles = async (
   topic,
   page,
   sortCriteria = 'created_at',
+  limit,
   cancelToken
 ) => {
   const url = topic
-    ? `${BASE_URL}/topics/${topic}/articles?sort_by=${sortCriteria}&p=${page}`
-    : `${BASE_URL}/articles?sort_by=${sortCriteria}&p=${page}`;
+    ? `${BASE_URL}/topics/${topic}/articles?sort_by=${sortCriteria}&p=${page}&limit=${limit}`
+    : `${BASE_URL}/articles?sort_by=${sortCriteria}&p=${page}&limit=${limit}`;
   const { data } = await axios.get(url, { cancelToken });
 
   return data;
