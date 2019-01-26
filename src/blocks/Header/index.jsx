@@ -29,6 +29,7 @@ const StyledNoteAdd = styled(AddCircle)`
 const StyledLink = styled(Link)`
   color: rgba(0, 0, 0, 0.84);
   text-decoration: none;
+  font-weight: 700;
 `;
 
 export default () => {

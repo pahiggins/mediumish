@@ -10,7 +10,6 @@ const Form = styled.form`
 `;
 
 const TextArea = styled.textarea`
-  /* margin-top: 3rem; */
   padding: 2rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   resize: none;

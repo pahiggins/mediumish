@@ -10,7 +10,7 @@ import * as api from '../../utils';
 
 const StyledLink = styled(Link)`
   color: rgba(0, 0, 0, 0.54);
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   text-decoration: none;

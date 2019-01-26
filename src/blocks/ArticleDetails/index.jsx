@@ -10,7 +10,7 @@ import Button from '../../elements/Button';
 import * as api from '../../utils';
 
 const H2 = styled.h2`
-  font-family: 'Libre Baskerville', serif;
+  font-family: 'Gentium Book Basic', serif;
   font-size: 3.8rem;
   font-weight: 400;
   line-height: 1.3;
@@ -19,8 +19,8 @@ const H2 = styled.h2`
 
 const P = styled.p`
   padding: 2.5rem 0 2.5rem 0;
-  font-size: 2.1rem;
-  font-weight: 400;
+  font-size: 2rem;
+  font-weight: 300;
   line-height: 1.58;
 `;
 

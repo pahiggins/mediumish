@@ -12,7 +12,7 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
-  font-family: 'Libre Baskerville', serif;
+  font-family: 'Gentium Book Basic', serif;
   height: 5.4rem;
   font-size: 4.2rem;
   border: none;
@@ -33,7 +33,7 @@ const Input = styled.input`
 `;
 
 const TextArea = styled.textarea`
-  font-family: 'Libre Baskerville', serif;
+  font-family: 'Gentium Book Basic', serif;
   margin-top: 2.5rem;
   height: 55vh;
   font-size: 2rem;

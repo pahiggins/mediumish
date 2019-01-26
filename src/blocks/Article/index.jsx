@@ -16,15 +16,15 @@ const StyledLink = styled(Link)`
 `;
 
 const Span = styled.span`
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 1.5rem;
   color: rgba(0, 0, 0, 0.54);
 `;
 
 const H2 = styled.h2`
   margin: 0.5rem 0;
-  font-size: 2.4rem;
-  font-weight: 600;
+  font-size: 2.2rem;
+  font-weight: 700;
   line-height: 1.3;
   color: rgba(0, 0, 0, 0.84);
 `;
@@ -33,7 +33,7 @@ const P = styled.p`
   padding-bottom: 1rem;
   font-size: 1.4rem;
   font-weight: 400;
-  line-height: 1.3;
+  line-height: 1.4;
   color: rgba(0, 0, 0, 0.54);
 `;
 

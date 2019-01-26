@@ -14,7 +14,7 @@ const Form = styled.form`
 
 const Input = styled.input`
   text-align: center;
-  font-family: 'Libre Baskerville', serif;
+  font-family: 'Gentium Book Basic', serif;
   height: 5.4rem;
   font-size: 4.2rem;
   border: none;
