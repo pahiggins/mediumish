@@ -153,23 +153,22 @@ class Articles extends Component {
 
     api
       .updateVotesByArticleId(articleId, vote)
-      .then(updatedArticle => {
-        const updatedArticles = articles.map(article => {
-          if (article.article_id === updatedArticle.article_id) {
-            return {
-              ...article,
-              votes: updatedArticle.votes,
-            };
-          } else {
-            return article;
-          }
-        });
-
-        this.setState({
-          articles: updatedArticles,
-        });
-      })
       .catch(error => this.setState({ error }));
+
+    const updatedArticles = articles.map(article => {
+      if (article.article_id === articleId) {
+        return {
+          ...article,
+          votes: article.votes + vote,
+        };
+      } else {
+        return article;
+      }
+    });
+
+    this.setState({
+      articles: updatedArticles,
+    });
   };
 
   handleSort = sortCriteria => {

@@ -105,13 +105,11 @@ class ArticleDetails extends Component {
   updateVotes = (articleId, vote) => {
     api
       .updateVotesByArticleId(articleId, vote)
-      .then(updatedArticle => {
-        // Ensure that only the votes property is updated in article state.
-        this.setState({
-          article: { ...this.state.article, votes: updatedArticle.votes },
-        });
-      })
       .catch(error => this.setState({ error }));
+
+    this.setState(({ article }) => ({
+      article: { ...article, votes: article.votes + vote },
+    }));
   };
 
   deleteArticleById = () => {

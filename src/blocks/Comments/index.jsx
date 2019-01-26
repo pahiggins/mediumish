@@ -111,21 +111,20 @@ class Comments extends Component {
 
     api
       .updateVotesByCommentId(articleId, vote, commentId)
-      .then(updatedComment => {
-        const updatedComments = comments.map(comment => {
-          if (comment.comment_id === updatedComment.comment_id) {
-            return {
-              ...comment,
-              votes: updatedComment.votes,
-            };
-          } else {
-            return comment;
-          }
-        });
-
-        this.setState({ comments: updatedComments });
-      })
       .catch(error => this.setState({ error }));
+
+    const updatedComments = comments.map(comment => {
+      if (comment.comment_id === commentId) {
+        return {
+          ...comment,
+          votes: comment.votes + vote,
+        };
+      } else {
+        return comment;
+      }
+    });
+
+    this.setState({ comments: updatedComments });
   };
 
   addComment = (comment, username) => {
