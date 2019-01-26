@@ -17,11 +17,14 @@ class App extends Component {
     super(props);
 
     this.toggleUsername = username => {
+      sessionStorage.setItem('username', username);
       this.setState({ username });
     };
 
+    const username = sessionStorage.getItem('username');
+
     this.state = {
-      username: '',
+      username: username || '',
       toggleUsername: this.toggleUsername,
     };
   }
