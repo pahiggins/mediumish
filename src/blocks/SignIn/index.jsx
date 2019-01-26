@@ -66,6 +66,10 @@ const WelcomeMessage = styled.div`
   margin-top: 4rem;
   padding: 1.5rem;
   font-size: 1.6rem;
+
+  & > p > span {
+    font-weight: bold;
+  }
 `;
 
 class SignIn extends Component {
@@ -82,7 +86,7 @@ class SignIn extends Component {
         <AuthContext.Consumer>
           {({ username, toggleUsername }) =>
             username
-              ? this.renderLogOutContent(toggleUsername)
+              ? this.renderLogOutContent(username, toggleUsername)
               : this.renderSignInContent(usernameInput, error, toggleUsername)
           }
         </AuthContext.Consumer>
@@ -136,11 +140,13 @@ class SignIn extends Component {
     );
   };
 
-  renderLogOutContent = toggleUsername => {
+  renderLogOutContent = (username, toggleUsername) => {
     return (
       <Fragment>
         <WelcomeMessage>
-          <p>Congratulations! You're now signed in.</p>
+          <p>
+            Congratulations! You're now signed in as <span>{username}</span>.
+          </p>
         </WelcomeMessage>
         <Buttons>
           <Button
