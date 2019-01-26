@@ -11,7 +11,7 @@ import * as api from '../../utils';
 
 const H2 = styled.h2`
   font-family: 'Gentium Book Basic', serif;
-  font-size: 3.8rem;
+  font-size: 4.2rem;
   font-weight: 400;
   line-height: 1.3;
   color: rgba(0, 0, 0, 0.84);
