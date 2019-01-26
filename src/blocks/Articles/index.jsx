@@ -153,11 +153,12 @@ class Articles extends Component {
   };
 
   handleScroll = throttle(() => {
-    const { loading } = this.state;
+    const { loading, hasMore } = this.state;
 
     if (
       window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
-      this.state.hasMore
+      !loading &&
+      hasMore
     ) {
       if (this.props.match.path === '/' && loading === false) {
         this.loadArticles(null, this.state.page);

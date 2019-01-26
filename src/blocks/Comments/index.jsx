@@ -155,10 +155,12 @@ class Comments extends Component {
 
   handleScroll = throttle(() => {
     const { articleId } = this.props;
+    const { loading, hasMore } = this.state;
 
     if (
       window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
-      this.state.hasMore
+      !loading &&
+      hasMore
     ) {
       this.loadComments(articleId, this.state.page);
     }
