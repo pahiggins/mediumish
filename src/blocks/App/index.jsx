@@ -52,13 +52,6 @@ class App extends Component {
       </Router>
     );
   }
-
-  // toggleStatus = () => {
-  //   console.log('Here also');
-  //   this.setState(state => ({
-  //     status: state.status === 'signedOut' ? 'signedIn' : 'signedOut',
-  //   }));
-  // };
 }
 
 export default App;

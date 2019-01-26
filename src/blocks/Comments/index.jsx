@@ -43,25 +43,32 @@ class Comments extends Component {
           <AuthContext.Consumer>
             {({ username }) => (
               <Fragment>
-                <div>
-                  <H3>Comments</H3>
-                  {comments.length === 0 ? (
-                    <Fragment>
-                      <P>There are no comments for this article.</P>
-                    </Fragment>
-                  ) : (
-                    comments.map(comment => (
-                      <Comment
-                        key={comment.comment_id}
-                        comment={comment}
-                        updateVotes={this.updateVotes}
-                        articleId={this.props.articleId}
-                        deleteComment={this.deleteComment}
-                      />
-                    ))
-                  )}
-                </div>
+                <H3>Comments</H3>
                 {username && <CommentAdd addComment={this.addComment} />}
+                {/* {comments.length === 0 ? (
+                  <Fragment>
+                    <P>There are no comments for this article.</P>
+                  </Fragment>
+                ) : (
+                  comments.map(comment => (
+                    <Comment
+                      key={comment.comment_id}
+                      comment={comment}
+                      updateVotes={this.updateVotes}
+                      articleId={this.props.articleId}
+                      deleteComment={this.deleteComment}
+                    />
+                  ))
+                )} */}
+                {comments.map(comment => (
+                  <Comment
+                    key={comment.comment_id}
+                    comment={comment}
+                    updateVotes={this.updateVotes}
+                    articleId={this.props.articleId}
+                    deleteComment={this.deleteComment}
+                  />
+                ))}
               </Fragment>
             )}
           </AuthContext.Consumer>
@@ -80,7 +87,7 @@ class Comments extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
-    this.signal.cancel('API is being canceled');
+    this.signal.cancel('API is being cancelled');
   }
 
   loadComments = (articleId, page) => {
@@ -99,7 +106,7 @@ class Comments extends Component {
       })
       .catch(error => {
         if (axios.isCancel(error)) {
-          console.log('Error: ', error.message);
+          // console.log('Error: ', error.message);
         } else {
           this.setState({ error, loading: false });
         }
@@ -139,7 +146,7 @@ class Comments extends Component {
       .addCommentByArticleId(articleId, newComment)
       .then(addedComment =>
         this.setState({
-          comments: [...comments, addedComment],
+          comments: [addedComment, ...comments],
         })
       )
       .catch(error => this.setState({ error }));

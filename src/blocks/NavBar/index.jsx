@@ -54,8 +54,10 @@ class NavBar extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // Make this more performant?
-    this.loadTopics();
+    console.log(this.props);
+    // if (prevProps.match.path !== this.props.match.path) {
+    //   this.loadTopics();
+    // }
   }
 
   loadTopics = () => {

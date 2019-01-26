@@ -17,7 +17,6 @@ const StyledThumbsUp = styled(ThumbsUp)`
 
   &:hover {
     color: #03a87c;
-    background-color: #03a87c;
   }
 `;
 

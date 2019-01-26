@@ -6,10 +6,11 @@ import Button from '../../elements/Button';
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  margin-bottom: 4rem;
 `;
 
 const TextArea = styled.textarea`
-  margin-top: 3rem;
+  /* margin-top: 3rem; */
   padding: 2rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   resize: none;
