@@ -45,21 +45,6 @@ class Comments extends Component {
               <Fragment>
                 <H3>Comments</H3>
                 {username && <CommentAdd addComment={this.addComment} />}
-                {/* {comments.length === 0 ? (
-                  <Fragment>
-                    <P>There are no comments for this article.</P>
-                  </Fragment>
-                ) : (
-                  comments.map(comment => (
-                    <Comment
-                      key={comment.comment_id}
-                      comment={comment}
-                      updateVotes={this.updateVotes}
-                      articleId={this.props.articleId}
-                      deleteComment={this.deleteComment}
-                    />
-                  ))
-                )} */}
                 {comments.map(comment => (
                   <Comment
                     key={comment.comment_id}
@@ -106,9 +91,8 @@ class Comments extends Component {
       })
       .catch(error => {
         if (axios.isCancel(error)) {
-          // console.log('Error: ', error.message);
         } else {
-          this.setState({ error, loading: false });
+          this.setState({ error, loading: false, hasMore: false });
         }
       });
   };

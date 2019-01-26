@@ -7,6 +7,7 @@ import Article from '../Article';
 import Sort from '../Sort';
 import Section from '../../elements/Section';
 import * as api from '../../utils';
+import ArticlesTrending from '../ArticlesTrending';
 
 const LeftSide = styled.div`
   display: flex;
@@ -64,6 +65,7 @@ class Articles extends Component {
         </LeftSide>
         <RightSide>
           <Sort title="Sort" handleSort={this.handleSort} />
+          <ArticlesTrending title="Popular on Mediumish" />
         </RightSide>
       </Section>
     );
