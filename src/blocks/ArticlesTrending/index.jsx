@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   margin-top: 3rem;
   background-color: rgba(0, 0, 0, 0.03);
-  height: 30rem; /* Remove this once content has been added */
+  height: 40rem; /* Remove this once content has been added */
 
   h2 {
     font-size: 1.8rem;
@@ -26,6 +26,7 @@ const Header = styled.div`
 const StyledTrendingUp = styled(TrendingUp)`
   margin-left: 1rem;
   height: 3rem;
+  color: rgba(3, 168, 124, 1);
 `;
 
 class ArticlesTrending extends Component {
