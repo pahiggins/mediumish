@@ -1,5 +1,4 @@
 import axios from 'axios';
-import slug from 'slug';
 
 const BASE_URL = 'https://nc-news-api-pah.herokuapp.com/api';
 

@@ -28,6 +28,12 @@ const Button = styled.button`
     background-color: ${props => props.backgroundColorSelect};
     border-color: ${props => props.borderColorSelect};
   }
+
+  &:hover:disabled {
+    background-color: ${props => props.backgroundColorDisabled};
+    color: ${props => props.colorHoverDisabled};
+    cursor: not-allowed;
+  }
 `;
 
 export default Button;
