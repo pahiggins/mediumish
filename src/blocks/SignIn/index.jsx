@@ -13,11 +13,16 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
-  text-align: center;
+  padding: 1rem;
   font-family: 'Gentium Book Basic', serif;
   height: 5.4rem;
   font-size: 4.2rem;
-  border: none;
+  text-align: center;
+  border-top: none;
+  border-right: none;
+  border-bottom: ${props => props.borderBottom};
+  border-left: none;
+  background-color: ${props => props.backgroundColor};
   color: rgba(0, 0, 0, 0.84);
 
   &::placeholder {
@@ -75,11 +80,21 @@ const WelcomeMessage = styled.div`
 class SignIn extends Component {
   state = {
     usernameInput: 'tickle122',
+    touched: {
+      usernameInput: false,
+    },
     error: '',
   };
 
   render() {
-    const { usernameInput, error } = this.state;
+    const { usernameInput, touched, error } = this.state;
+    const errors = this.handleValidation(usernameInput);
+    const isEnabled = !Object.keys(errors).some(x => errors[x]);
+    const shouldIndicateError = field => {
+      const hasError = errors[field];
+      const shouldShow = touched[field];
+      return hasError ? shouldShow : false;
+    };
 
     return (
       <Section inputWidth="80%" inputMargin="0 auto">
@@ -87,14 +102,26 @@ class SignIn extends Component {
           {({ username, toggleUsername }) =>
             username
               ? this.renderLogOutContent(username, toggleUsername)
-              : this.renderSignInContent(usernameInput, error, toggleUsername)
+              : this.renderSignInContent(
+                  usernameInput,
+                  error,
+                  toggleUsername,
+                  shouldIndicateError,
+                  isEnabled
+                )
           }
         </AuthContext.Consumer>
       </Section>
     );
   }
 
-  renderSignInContent = (usernameInput, error, toggleUsername) => {
+  renderSignInContent = (
+    usernameInput,
+    error,
+    toggleUsername,
+    shouldIndicateError,
+    isEnabled
+  ) => {
     return (
       <Form onSubmit={e => this.signIn(e, toggleUsername)}>
         <Input
@@ -102,9 +129,19 @@ class SignIn extends Component {
           id="usernameInput"
           value={usernameInput}
           onChange={this.handleChange}
+          onBlur={this.handleBlur('usernameInput')}
           onSubmit={e => this.signIn(e, toggleUsername)}
           placeholder="Username"
-          autoFocus
+          borderBottom={
+            shouldIndicateError('usernameInput')
+              ? 'solid 0.2rem rgba(255, 86, 48, 1)'
+              : 'solid 0.2rem transparent'
+          }
+          backgroundColor={
+            shouldIndicateError('usernameInput')
+              ? 'rgba(255, 86, 48, 0.1)'
+              : 'transparent'
+          }
         />
         <Buttons>
           <Button
@@ -125,6 +162,9 @@ class SignIn extends Component {
             colorHover={'#fff'}
             backgroundColorSelect={'rgba(3, 168, 124, 0.8)'}
             borderColorSelect={'rgba(3, 168, 124, 0.8)'}
+            disabled={!isEnabled}
+            backgroundColorDisabled={'transparent'}
+            colorHoverDisabled={'rgba(3, 168, 124, 1)'}
             onClick={e => this.signIn(e, toggleUsername)}
           >
             Sign In
@@ -181,6 +221,16 @@ class SignIn extends Component {
     this.setState({
       [id]: value,
     });
+  };
+
+  handleValidation = usernameInput => ({
+    usernameInput: usernameInput.length === 0,
+  });
+
+  handleBlur = field => e => {
+    this.setState(state => ({
+      touched: { ...state.touched, [field]: true },
+    }));
   };
 
   handleClick = () => {
