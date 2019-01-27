@@ -11,6 +11,7 @@ import SignIn from '../SignIn';
 import ArticleAdd from '../ArticleAdd';
 import TopicAdd from '../TopicAdd';
 import ArticleDetails from '../ArticleDetails';
+import NotFound from '../NotFound';
 
 class App extends Component {
   constructor(props) {
@@ -48,6 +49,7 @@ class App extends Component {
                   path="/:username/:articleId"
                   component={ArticleDetails}
                 />
+                <Route component={NotFound} />
               </Switch>
             </Main>
           </AuthContext.Provider>
