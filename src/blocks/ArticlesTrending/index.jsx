@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   height: 40rem; /* Remove this once content has been added */
 
   h2 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 `;
 
@@ -34,7 +34,7 @@ class ArticlesTrending extends Component {
     return (
       <Wrapper>
         <Header>
-          <h2>{this.props.title.toUpperCase()}</h2>
+          <h2>{this.props.title}</h2>
           <StyledTrendingUp />
         </Header>
       </Wrapper>
