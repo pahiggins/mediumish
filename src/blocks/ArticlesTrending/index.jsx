@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   height: 40rem; /* Remove this once content has been added */
 
   h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 `;
 
@@ -19,7 +19,7 @@ const Header = styled.div`
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  height: 6.5rem;
+  height: 7rem;
   background-color: rgba(3, 168, 124, 0.15);
 `;
 
