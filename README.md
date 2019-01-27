@@ -43,6 +43,7 @@ Additional notes about how to deploy this on a live server.
 
 - [React](https://reactjs.org/) - JS library for building user interfaces
 - [Styled Components](https://www.styled-components.com/) - Visual primitives for the component age
+- [Styled Icons](https://styled-icons.js.org) - Icons as Styled Components
 
 ## Versioning
 
