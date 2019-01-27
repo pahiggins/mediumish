@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { SpinLoader } from 'react-css-loaders';
 import styled from 'styled-components';
+import slug from 'slug';
 import AuthContext from '../App/AuthContext';
 import Section from '../../elements/Section';
 import Button from '../../elements/Button';
@@ -189,12 +190,12 @@ class ArticleAdd extends Component {
     this.props.history.push(path);
   };
 
-  handleSubmit = (event, username) => {
-    event.preventDefault();
+  handleSubmit = (e, username) => {
+    e.preventDefault();
     const { title, body, topic } = this.state;
 
     api
-      .addArticle(title, body, username, topic)
+      .addArticle(title, body, username, slug(topic.toLowerCase()))
       .then(article => {
         if (article.title === title) {
           this.props.history.push(`/${username}/${article.article_id}`);

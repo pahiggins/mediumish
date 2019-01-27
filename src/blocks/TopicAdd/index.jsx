@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import * as slugify from 'slug';
+import slug from 'slug';
 import AuthContext from '../App/AuthContext';
 import Section from '../../elements/Section';
 import Button from '../../elements/Button';
@@ -64,13 +64,13 @@ const Buttons = styled.div`
 class TopicAdd extends Component {
   state = {
     topics: [],
-    slug: '',
+    topic: '',
     description: '',
     error: '',
   };
 
   render() {
-    const { slug, description, error } = this.state;
+    const { topic, description, error } = this.state;
 
     return (
       <AuthContext.Consumer>
@@ -80,8 +80,8 @@ class TopicAdd extends Component {
               <Form onSubmit={this.handleSubmit}>
                 <Input
                   type="text"
-                  id="slug"
-                  value={slug}
+                  id="topic"
+                  value={topic}
                   onChange={this.handleChange}
                   placeholder="Topic"
                   autoFocus
@@ -152,14 +152,14 @@ class TopicAdd extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { topics, slug, description } = this.state;
+    const { topics, topic, description } = this.state;
     const match = topics.filter(
-      topic => topic.slug.toLowerCase() === slug.toLowerCase()
+      existingTopic => existingTopic.slug.toLowerCase() === topic.toLowerCase()
     );
 
     if (match.length === 0) {
       api
-        .addTopic(slugify(slug), description)
+        .addTopic(slug(topic.toLowerCase()), description)
         .then(topic => this.props.history.push(`/new-article`))
         .catch(error => this.setState({ error }));
     } else {

@@ -70,14 +70,11 @@ export const updateVotesByCommentId = async (articleId, vote, commentId) => {
 };
 
 export const addArticle = async (title, body, username, topic) => {
-  const { data } = await axios.post(
-    `${BASE_URL}/topics/${slug(topic)}/articles`,
-    {
-      title,
-      body,
-      username,
-    }
-  );
+  const { data } = await axios.post(`${BASE_URL}/topics/${topic}/articles`, {
+    title,
+    body,
+    username,
+  });
 
   return data;
 };

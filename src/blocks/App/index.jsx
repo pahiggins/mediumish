@@ -35,8 +35,8 @@ class App extends Component {
       <Router>
         <Fragment>
           <AuthContext.Provider value={this.state}>
-            <Header />
-            <NavBar />
+            <Route path="/" component={Header} />
+            <Route path="/" component={NavBar} />
             <Main>
               <Switch>
                 <Route exact path="/" component={Articles} />
