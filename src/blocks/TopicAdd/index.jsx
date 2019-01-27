@@ -9,13 +9,19 @@ import * as api from '../../utils';
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  height: 70vh;
 `;
 
 const Input = styled.input`
+  padding: 1rem;
   font-family: 'Gentium Book Basic', serif;
   height: 5.4rem;
   font-size: 4.2rem;
-  border: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: ${props => props.borderBottom};
+  border-left: none;
+  background-color: ${props => props.backgroundColor};
   color: rgba(0, 0, 0, 0.84);
 
   &::placeholder {
@@ -35,9 +41,14 @@ const Input = styled.input`
 const TextArea = styled.textarea`
   font-family: 'Gentium Book Basic', serif;
   margin-top: 2.5rem;
-  height: 55vh;
+  padding: 1rem;
+  height: 75%;
   font-size: 2rem;
-  border: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: ${props => props.borderBottom};
+  border-left: none;
+  background-color: ${props => props.backgroundColor};
   color: rgba(0, 0, 0, 0.84);
   resize: none;
 
@@ -66,11 +77,22 @@ class TopicAdd extends Component {
     topics: [],
     topic: '',
     description: '',
+    touched: {
+      topic: false,
+      description: false,
+    },
     error: '',
   };
 
   render() {
-    const { topic, description, error } = this.state;
+    const { topic, description, touched, error } = this.state;
+    const errors = this.handleValidation(topic, description);
+    const isEnabled = !Object.keys(errors).some(x => errors[x]);
+    const shouldIndicateError = field => {
+      const hasError = errors[field];
+      const shouldShow = touched[field];
+      return hasError ? shouldShow : false;
+    };
 
     return (
       <AuthContext.Consumer>
@@ -83,8 +105,18 @@ class TopicAdd extends Component {
                   id="topic"
                   value={topic}
                   onChange={this.handleChange}
+                  onBlur={this.handleBlur('topic')}
                   placeholder="Topic"
-                  autoFocus
+                  borderBottom={
+                    shouldIndicateError('topic')
+                      ? 'solid 0.2rem rgba(255, 86, 48, 1)'
+                      : 'solid 0.2rem transparent'
+                  }
+                  backgroundColor={
+                    shouldIndicateError('topic')
+                      ? 'rgba(255, 86, 48, 0.1)'
+                      : 'transparent'
+                  }
                 />
                 {error && <p>{error}</p>}
                 <TextArea
@@ -92,7 +124,18 @@ class TopicAdd extends Component {
                   id="description"
                   value={description}
                   onChange={this.handleChange}
+                  onBlur={this.handleBlur('description')}
                   placeholder="Describe topic..."
+                  borderBottom={
+                    shouldIndicateError('description')
+                      ? 'solid 0.2rem rgba(255, 86, 48, 1)'
+                      : 'solid 0.2rem transparent'
+                  }
+                  backgroundColor={
+                    shouldIndicateError('description')
+                      ? 'rgba(255, 86, 48, 0.1)'
+                      : 'transparent'
+                  }
                   rows="5"
                   cols="33"
                 />
@@ -115,6 +158,9 @@ class TopicAdd extends Component {
                     colorHover={'#fff'}
                     backgroundColorSelect={'rgba(3, 168, 124, 0.8)'}
                     borderColorSelect={'rgba(3, 168, 124, 0.8)'}
+                    disabled={!isEnabled}
+                    backgroundColorDisabled={'transparent'}
+                    colorHoverDisabled={'rgba(3, 168, 124, 1)'}
                     onClick={this.handleSubmit}
                   >
                     Add Topic
@@ -144,6 +190,17 @@ class TopicAdd extends Component {
     this.setState({
       [id]: value,
     });
+  };
+
+  handleValidation = (topic, description) => ({
+    topic: topic.length === 0,
+    description: description.length === 0,
+  });
+
+  handleBlur = field => e => {
+    this.setState(state => ({
+      touched: { ...state.touched, [field]: true },
+    }));
   };
 
   handleClick = path => {
