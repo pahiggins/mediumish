@@ -1,24 +1,41 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { TrendingUp } from 'styled-icons/boxicons-regular';
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: center;
-  padding: 1rem;
+  flex-direction: column;
   margin-top: 3rem;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.03);
   height: 30rem; /* Remove this once content has been added */
 
   h2 {
-    font-size: 1.3rem;
+    font-size: 1.8rem;
   }
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  height: 6.5rem;
+  background-color: rgba(3, 168, 124, 0.15);
+`;
+
+const StyledTrendingUp = styled(TrendingUp)`
+  margin-left: 1rem;
+  height: 3rem;
 `;
 
 class ArticlesTrending extends Component {
   render() {
     return (
       <Wrapper>
-        <h2>{this.props.title.toUpperCase()}</h2>
+        <Header>
+          <h2>{this.props.title.toUpperCase()}</h2>
+          <StyledTrendingUp />
+        </Header>
       </Wrapper>
     );
   }
