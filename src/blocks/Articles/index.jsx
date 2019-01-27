@@ -12,8 +12,6 @@ import ArticlesTrending from '../ArticlesTrending';
 const LeftSide = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: center;
-  align-items: center; */
   width: 66.66%;
 `;
 
@@ -24,7 +22,9 @@ const RightSide = styled.div`
 `;
 
 const PlaceholderText = styled.p`
+  margin-top: 4.8rem;
   font-size: 1.6rem;
+  text-align: center;
 `;
 
 class Articles extends Component {
