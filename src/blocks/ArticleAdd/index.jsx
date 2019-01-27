@@ -236,10 +236,10 @@ class ArticleAdd extends Component {
     body: body.length === 0,
   });
 
-  handleBlur = field => evt => {
-    this.setState({
-      touched: { ...this.state.touched, [field]: true },
-    });
+  handleBlur = field => e => {
+    this.setState(state => ({
+      touched: { ...state.touched, [field]: true },
+    }));
   };
 
   handleClick = path => {
