@@ -8,7 +8,7 @@ import Votes from '../Votes';
 const StyledArticle = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 4.8rem;
+  margin-bottom: ${props => props.marginBottom};
 `;
 
 const StyledLink = styled(Link)`
@@ -21,10 +21,9 @@ const Span = styled.span`
   color: rgba(0, 0, 0, 0.54);
 `;
 
-const H2 = styled.h2`
+const H2 = styled.h3`
   margin: 0.5rem 0;
-  font-size: 2.2rem;
-  font-weight: 700;
+  font-size: ${props => props.fontSize};
   line-height: 1.3;
   color: rgba(0, 0, 0, 0.84);
 `;
@@ -62,19 +61,24 @@ const Article = ({
     votes,
   },
   updateVotes,
+  size,
 }) => {
   return (
-    <StyledArticle>
-      <StyledLink to={`/topic/${topic}`}>
-        <Span>{topic.toUpperCase()}</Span>
-      </StyledLink>
+    <StyledArticle marginBottom={!size ? '4.8rem' : '2rem'}>
+      {!size && (
+        <StyledLink to={`/topic/${topic}`}>
+          <Span>{topic.toUpperCase()}</Span>
+        </StyledLink>
+      )}
       <StyledLink to={`/${author}/${article_id}`}>
-        <H2>{title}</H2>
-        <P>
-          SEAFOOD fraud is a serious global problem', begins a recent report
-          from Oceana, an NGO. Reviewing over 200 studies in 55 countries, the
-          report...
-        </P>
+        <H2 fontSize={!size ? '2.2rem' : '1.6rem'}>{title}</H2>
+        {!size && (
+          <P>
+            SEAFOOD fraud is a serious global problem', begins a recent report
+            from Oceana, an NGO. Reviewing over 200 studies in 55 countries, the
+            report...
+          </P>
+        )}
         <Author>{author}</Author>
         <Details>{`${moment(created_at).format(
           'MMM D, YYYY'
@@ -82,7 +86,8 @@ const Article = ({
       </StyledLink>
       <AuthContext.Consumer>
         {({ username }) =>
-          username && (
+          username &&
+          !size && (
             <Votes
               votes={votes}
               articleId={article_id}

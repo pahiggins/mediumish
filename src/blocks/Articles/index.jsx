@@ -12,8 +12,8 @@ import ArticlesTrending from '../ArticlesTrending';
 const LeftSide = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   width: 66.66%;
 `;
 
