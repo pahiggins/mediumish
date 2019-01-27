@@ -5,7 +5,7 @@ const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   height: 6.5rem;
-  max-width: 103.2rem;
+  max-width: 107.2rem;
   margin: 0 auto;
   padding: 0 2rem;
 `;
