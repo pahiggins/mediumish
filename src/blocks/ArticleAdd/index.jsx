@@ -43,6 +43,7 @@ const Input = styled.input`
 const Select = styled.select`
   margin-top: 2rem;
   height: 4rem;
+  font-size: 1.6rem;
   border: none;
 
   &:focus {
