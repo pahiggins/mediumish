@@ -26,6 +26,8 @@ cd nc-news
 npm install
 ```
 
+NB. You will also need to follow the web server set up detailed [here](https://github.com/pahiggins/nc-news-api).
+
 ## Prerequisites
 
 - Node v10.12.0
