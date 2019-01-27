@@ -22,6 +22,10 @@ const Ul = styled.ul`
     font-size: 1.2rem;
     font-weight: 500;
     cursor: pointer;
+
+    :hover {
+      color: rgba(0, 0, 0, 0.84);
+    }
   }
 `;
 
