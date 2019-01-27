@@ -2,6 +2,9 @@
 
 React app for use with [NC News API](https://github.com/pahiggins/nc-news-api).
 
+[View Site](https://mediumish.netlify.com/)
+[View API](https://nc-news-api-pah.herokuapp.com/api)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See 'Deployment' for notes on how to deploy the project on a live server.
