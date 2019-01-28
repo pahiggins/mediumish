@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import styled from 'styled-components';
 import { DeleteForever } from 'styled-icons/material/DeleteForever';
@@ -98,6 +99,20 @@ const Comment = ({ comment, updateVotes, articleId, deleteComment }) => {
       </AuthContext.Consumer>
     </StyledComment>
   );
+};
+
+Comment.propTypes = {
+  articleId: PropTypes.string.isRequired,
+  comment: PropTypes.shape({
+    comment_id: PropTypes.number.isRequired,
+    votes: PropTypes.number.isRequired,
+    created_at: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+  }).isRequired,
+  updateVotes: PropTypes.func.isRequired,
+  deleteComment: PropTypes.func.isRequired,
 };
 
 export default Comment;

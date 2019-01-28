@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { SpinLoader } from 'react-css-loaders';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -102,5 +103,9 @@ class ArticlesTrending extends Component {
       });
   };
 }
+
+ArticlesTrending.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default ArticlesTrending;

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Header = styled.div`
@@ -47,5 +48,10 @@ class Sort extends Component {
     );
   }
 }
+
+Sort.propTypes = {
+  title: PropTypes.string.isRequired,
+  handleSort: PropTypes.func.isRequired,
+};
 
 export default Sort;

@@ -121,7 +121,6 @@ class Articles extends Component {
       })
       .catch(error => {
         if (axios.isCancel(error)) {
-          // console.log('Error: ', error.message);
         } else {
           this.setState({ error, loading: false, hasMore: false });
         }

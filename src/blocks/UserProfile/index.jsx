@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 import { Person } from 'styled-icons/octicons';
@@ -35,6 +36,11 @@ const UserProfile = ({ author, createdAt }) => {
       </div>
     </StyledUserProfile>
   );
+};
+
+UserProfile.propTypes = {
+  author: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
 };
 
 export default UserProfile;

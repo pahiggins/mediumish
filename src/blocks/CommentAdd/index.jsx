@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import AuthContext from '../App/AuthContext';
 import Button from '../../elements/Button';
@@ -93,5 +94,9 @@ class CommentAdd extends Component {
     });
   };
 }
+
+CommentAdd.propTypes = {
+  addComment: PropTypes.func.isRequired,
+};
 
 export default CommentAdd;

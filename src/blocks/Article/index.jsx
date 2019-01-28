@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import moment from 'moment';
@@ -99,6 +100,20 @@ const Article = ({
       </AuthContext.Consumer>
     </StyledArticle>
   );
+};
+
+Article.propTypes = {
+  article: PropTypes.shape({
+    author: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    article_id: PropTypes.number.isRequired,
+    body: PropTypes.string.isRequired,
+    votes: PropTypes.number.isRequired,
+    created_at: PropTypes.string.isRequired,
+    topic: PropTypes.string.isRequired,
+    comment_count: PropTypes.string.isRequired,
+  }).isRequired,
+  updateVotes: PropTypes.func,
 };
 
 export default Article;

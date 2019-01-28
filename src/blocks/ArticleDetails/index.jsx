@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { SpinLoader } from 'react-css-loaders';
 import styled from 'styled-components';
 import AuthContext from '../App/AuthContext';
@@ -121,5 +122,18 @@ class ArticleDetails extends Component {
       .catch(error => this.setState({ error, loading: false }));
   };
 }
+
+ArticleDetails.propTypes = {
+  article: PropTypes.shape({
+    author: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    article_id: PropTypes.number.isRequired,
+    body: PropTypes.string.isRequired,
+    votes: PropTypes.number.isRequired,
+    created_at: PropTypes.string.isRequired,
+    topic: PropTypes.string.isRequired,
+    comment_count: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default ArticleDetails;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ThumbsUp, ThumbsDown } from 'styled-icons/feather';
 
@@ -60,6 +61,13 @@ const Votes = ({
       <P>{votes}</P>
     </StyledVotes>
   );
+};
+
+Votes.propTypes = {
+  articleId: PropTypes.number.isRequired,
+  votes: PropTypes.number.isRequired,
+  updateVotes: PropTypes.func.isRequired,
+  inputHeight: PropTypes.string.isRequired,
 };
 
 export default Votes;

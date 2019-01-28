@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { SpinLoader } from 'react-css-loaders';
 import throttle from 'lodash.throttle';
 import axios from 'axios';
@@ -161,5 +162,9 @@ class Comments extends Component {
     }
   }, 1000);
 }
+
+Comments.propTypes = {
+  articleId: PropTypes.string.isRequired,
+};
 
 export default Comments;
