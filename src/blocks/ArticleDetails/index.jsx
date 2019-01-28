@@ -75,6 +75,7 @@ class ArticleDetails extends Component {
                         colorHover={'#fff'}
                         backgroundColorSelect={'rgba(255, 86, 48, 0.8)'}
                         borderColorSelect={'rgba(255, 86, 48, 0.8)'}
+                        margin={'0.75rem'}
                         onClick={this.deleteArticleById}
                       >
                         Delete Article
