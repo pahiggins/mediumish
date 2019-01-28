@@ -47,6 +47,7 @@ const Buttons = styled.div`
 
 const ErrorMessage = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
   margin-top: 4rem;
   padding: 1.5rem;
@@ -259,7 +260,9 @@ class SignIn extends Component {
         }
       })
       .catch(error => {
-        this.setState({ error });
+        this.setState({
+          error: 'The username you entered is incorrect.',
+        });
       });
   };
 
