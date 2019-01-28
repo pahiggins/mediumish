@@ -57,6 +57,7 @@ const Article = ({
     author,
     article_id,
     title,
+    body,
     created_at,
     comment_count,
     votes,
@@ -75,9 +76,11 @@ const Article = ({
         <H2 fontSize={!size ? '2.2rem' : '1.6rem'}>{title}</H2>
         {!size && (
           <P>
-            SEAFOOD fraud is a serious global problem', begins a recent report
-            from Oceana, an NGO. Reviewing over 200 studies in 55 countries, the
-            report...
+            {body
+              .split(' ')
+              .slice(0, 40)
+              .join(' ')
+              .concat('...')}
           </P>
         )}
         <Author>{author}</Author>
