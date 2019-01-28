@@ -102,7 +102,7 @@ const Comment = ({ comment, updateVotes, articleId, deleteComment }) => {
 };
 
 Comment.propTypes = {
-  articleId: PropTypes.string.isRequired,
+  articleId: PropTypes.number.isRequired,
   comment: PropTypes.shape({
     comment_id: PropTypes.number.isRequired,
     votes: PropTypes.number.isRequired,

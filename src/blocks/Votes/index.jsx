@@ -67,7 +67,8 @@ Votes.propTypes = {
   articleId: PropTypes.number.isRequired,
   votes: PropTypes.number.isRequired,
   updateVotes: PropTypes.func.isRequired,
-  inputHeight: PropTypes.string.isRequired,
+  inputHeight: PropTypes.string,
+  inputMarginBottom: PropTypes.string,
 };
 
 export default Votes;

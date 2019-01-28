@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Media from 'react-media';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -30,22 +31,28 @@ class NavBar extends Component {
     const { topics } = this.state;
 
     return (
-      <Nav>
-        {topics.length === 0 ? null : (
-          <Ul>
-            <Li key="Home">
-              <StyledLink to={'/'}>HOME</StyledLink>
-            </Li>
-            {topics.map(({ slug }) => (
-              <Li key={slug}>
-                <StyledLink to={`/topic/${slug.toLowerCase()}`}>
-                  {slug.toUpperCase()}
-                </StyledLink>
-              </Li>
-            ))}
-          </Ul>
-        )}
-      </Nav>
+      <Media query="(min-width: 640px)">
+        {query =>
+          query && (
+            <Nav>
+              {topics.length === 0 ? null : (
+                <Ul>
+                  <Li key="Home">
+                    <StyledLink to={'/'}>HOME</StyledLink>
+                  </Li>
+                  {topics.map(({ slug }) => (
+                    <Li key={slug}>
+                      <StyledLink to={`/topic/${slug.toLowerCase()}`}>
+                        {slug.toUpperCase()}
+                      </StyledLink>
+                    </Li>
+                  ))}
+                </Ul>
+              )}
+            </Nav>
+          )
+        }
+      </Media>
     );
   }
 

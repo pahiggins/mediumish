@@ -164,7 +164,7 @@ class Comments extends Component {
 }
 
 Comments.propTypes = {
-  articleId: PropTypes.string.isRequired,
+  articleId: PropTypes.number.isRequired,
 };
 
 export default Comments;

@@ -133,7 +133,7 @@ ArticleDetails.propTypes = {
     created_at: PropTypes.string.isRequired,
     topic: PropTypes.string.isRequired,
     comment_count: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
 };
 
 export default ArticleDetails;
