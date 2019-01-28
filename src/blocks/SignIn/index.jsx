@@ -9,7 +9,6 @@ import * as api from '../../utils';
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 
 const Input = styled.input`
@@ -102,21 +101,19 @@ class SignIn extends Component {
     };
 
     return (
-      <Section inputWidth="80%" inputMargin="0 auto">
-        <AuthContext.Consumer>
-          {({ username, toggleUsername }) =>
-            username
-              ? this.renderLogOutContent(username, toggleUsername)
-              : this.renderSignInContent(
-                  usernameInput,
-                  error,
-                  toggleUsername,
-                  shouldIndicateError,
-                  isEnabled
-                )
-          }
-        </AuthContext.Consumer>
-      </Section>
+      <AuthContext.Consumer>
+        {({ username, toggleUsername }) =>
+          username
+            ? this.renderLogOutContent(username, toggleUsername)
+            : this.renderSignInContent(
+                usernameInput,
+                error,
+                toggleUsername,
+                shouldIndicateError,
+                isEnabled
+              )
+        }
+      </AuthContext.Consumer>
     );
   }
 
@@ -128,67 +125,69 @@ class SignIn extends Component {
     isEnabled
   ) => {
     return (
-      <Form onSubmit={e => this.signIn(e, toggleUsername)}>
-        <Input
-          type="text"
-          id="usernameInput"
-          value={usernameInput}
-          onChange={this.handleChange}
-          onBlur={this.handleBlur('usernameInput')}
-          onSubmit={e => this.signIn(e, toggleUsername)}
-          placeholder="Username"
-          borderBottom={
-            shouldIndicateError('usernameInput')
-              ? 'solid 0.2rem rgba(255, 86, 48, 1)'
-              : 'solid 0.2rem transparent'
-          }
-          backgroundColor={
-            shouldIndicateError('usernameInput')
-              ? 'rgba(255, 86, 48, 0.1)'
-              : 'transparent'
-          }
-        />
-        <Buttons>
-          <Button
-            type="button"
-            borderColor={'rgba(0, 0, 0, 0.24)'}
-            borderColorHover={'rgba(0, 0, 0, 0.54)'}
-            color={'rgba(0, 0, 0, 0.54)'}
-            margin={'0.75rem'}
-            onClick={this.handleClick}
-          >
-            Cancel
-          </Button>
-          <Button
-            type="button"
-            backgroundColorHover={'rgba(3, 168, 124, 1)'}
-            borderColor={'rgba(3, 168, 124, 1)'}
-            color={'rgba(3, 168, 124, 1)'}
-            colorHover={'#fff'}
-            backgroundColorSelect={'rgba(3, 168, 124, 0.8)'}
-            borderColorSelect={'rgba(3, 168, 124, 0.8)'}
-            disabled={!isEnabled}
-            backgroundColorDisabled={'transparent'}
-            colorHoverDisabled={'rgba(3, 168, 124, 1)'}
-            margin={'0.75rem'}
-            onClick={e => this.signIn(e, toggleUsername)}
-          >
-            Sign In
-          </Button>
-        </Buttons>
-        {error && (
-          <ErrorMessage>
-            <StyledWarning />
-            <p>{error}</p>
-          </ErrorMessage>
-        )}
-      </Form>
+      <Section inputWidth="80%" inputMargin="0 auto">
+        <Form onSubmit={e => this.signIn(e, toggleUsername)}>
+          <Input
+            type="text"
+            id="usernameInput"
+            value={usernameInput}
+            onChange={this.handleChange}
+            onBlur={this.handleBlur('usernameInput')}
+            onSubmit={e => this.signIn(e, toggleUsername)}
+            placeholder="Username"
+            borderBottom={
+              shouldIndicateError('usernameInput')
+                ? 'solid 0.2rem rgba(255, 86, 48, 1)'
+                : 'solid 0.2rem transparent'
+            }
+            backgroundColor={
+              shouldIndicateError('usernameInput')
+                ? 'rgba(255, 86, 48, 0.1)'
+                : 'transparent'
+            }
+          />
+          <Buttons>
+            <Button
+              type="button"
+              borderColor={'rgba(0, 0, 0, 0.24)'}
+              borderColorHover={'rgba(0, 0, 0, 0.54)'}
+              color={'rgba(0, 0, 0, 0.54)'}
+              margin={'0.75rem'}
+              onClick={this.handleClick}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              backgroundColorHover={'rgba(3, 168, 124, 1)'}
+              borderColor={'rgba(3, 168, 124, 1)'}
+              color={'rgba(3, 168, 124, 1)'}
+              colorHover={'#fff'}
+              backgroundColorSelect={'rgba(3, 168, 124, 0.8)'}
+              borderColorSelect={'rgba(3, 168, 124, 0.8)'}
+              disabled={!isEnabled}
+              backgroundColorDisabled={'transparent'}
+              colorHoverDisabled={'rgba(3, 168, 124, 1)'}
+              margin={'0.75rem'}
+              onClick={e => this.signIn(e, toggleUsername)}
+            >
+              Sign In
+            </Button>
+          </Buttons>
+          {error && (
+            <ErrorMessage>
+              <StyledWarning />
+              <p>{error}</p>
+            </ErrorMessage>
+          )}
+        </Form>
+      </Section>
     );
   };
 
   renderLogOutContent = (username, toggleUsername) => {
     return (
-      <Fragment>
+      <Section inputWidth="80%" inputMargin="0 auto">
         <WelcomeMessage>
           <p>
             Congratulations! You're now signed in as <span>{username}</span>.
@@ -219,7 +218,7 @@ class SignIn extends Component {
             Sign Out
           </Button>
         </Buttons>
-      </Fragment>
+      </Section>
     );
   };
 
