@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import Media from 'react-media';
 import { SpinLoader } from 'react-css-loaders';
 import axios from 'axios';
 import throttle from 'lodash.throttle';
@@ -12,13 +13,15 @@ import ArticlesTrending from '../ArticlesTrending';
 const LeftSide = styled.div`
   display: flex;
   flex-direction: column;
-  width: 66.66%;
+  /* width: 66.66%; */
+  width: ${props => props.width};
 `;
 
 const RightSide = styled.div`
   margin-left: 5.6rem;
   max-width: 32.8rem;
-  width: 33.34%;
+  /* width: 33.34%; */
+  width: ${props => props.width};
 `;
 
 const PlaceholderText = styled.p`
@@ -43,32 +46,38 @@ class Articles extends Component {
     const { articles, loading } = this.state;
 
     return (
-      <Section flexDirection="row">
-        <LeftSide>
-          {loading ? (
-            <SpinLoader size={5} color="#ccc" />
-          ) : (
-            <Fragment>
-              {articles.map(article => (
-                <Article
-                  key={article.article_id}
-                  article={article}
-                  updateVotes={this.updateVotes}
-                />
-              ))}
-              {articles.length === 0 && (
-                <PlaceholderText>
-                  There are no articles for this topic.
-                </PlaceholderText>
+      <Media query="(min-width: 640px)">
+        {matches => (
+          <Section flexDirection="row">
+            <LeftSide width={matches ? '66.66%' : '100%'}>
+              {loading ? (
+                <SpinLoader size={5} color="#ccc" />
+              ) : (
+                <Fragment>
+                  {articles.map(article => (
+                    <Article
+                      key={article.article_id}
+                      article={article}
+                      updateVotes={this.updateVotes}
+                    />
+                  ))}
+                  {articles.length === 0 && (
+                    <PlaceholderText>
+                      There are no articles for this topic.
+                    </PlaceholderText>
+                  )}
+                </Fragment>
               )}
-            </Fragment>
-          )}
-        </LeftSide>
-        <RightSide>
-          <Sort title="Sort" handleSort={this.handleSort} />
-          <ArticlesTrending title="Popular on Mediumish" />
-        </RightSide>
-      </Section>
+            </LeftSide>
+            {matches && (
+              <RightSide width="33.34%">
+                <Sort title="Sort" handleSort={this.handleSort} />
+                <ArticlesTrending title="Popular on Mediumish" />
+              </RightSide>
+            )}
+          </Section>
+        )}
+      </Media>
     );
   }
 
