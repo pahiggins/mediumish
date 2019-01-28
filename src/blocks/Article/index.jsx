@@ -74,7 +74,7 @@ const Article = ({
       )}
       <StyledLink to={`/${author}/${article_id}`}>
         <H2 fontSize={!size ? '2.2rem' : '1.6rem'}>{title}</H2>
-        {!size && (
+        {!size && body && (
           <P>
             {body
               .split(' ')
@@ -110,7 +110,7 @@ Article.propTypes = {
     author: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     article_id: PropTypes.number.isRequired,
-    body: PropTypes.string.isRequired,
+    body: PropTypes.string,
     votes: PropTypes.number.isRequired,
     created_at: PropTypes.string.isRequired,
     topic: PropTypes.string.isRequired,

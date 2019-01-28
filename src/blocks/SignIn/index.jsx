@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Warning } from 'styled-icons/icomoon';
 import AuthContext from '../App/AuthContext';

@@ -12,70 +12,83 @@ export const getArticles = async (
   const url = topic
     ? `${BASE_URL}/topics/${topic}/articles?sort_by=${sortCriteria}&p=${page}&limit=${limit}`
     : `${BASE_URL}/articles?sort_by=${sortCriteria}&p=${page}&limit=${limit}`;
-  const { data } = await axios.get(url, { cancelToken });
+  const {
+    data: { articles },
+  } = await axios.get(url, { cancelToken });
 
-  return data;
+  return articles;
 };
 
 export const getArticleById = async articleId => {
-  const { data } = await axios.get(`${BASE_URL}/articles/${articleId}`);
+  const {
+    data: { article },
+  } = await axios.get(`${BASE_URL}/articles/${articleId}`);
 
-  return data;
+  return article;
 };
 
 export const getTopics = async () => {
-  const { data } = await axios.get(`${BASE_URL}/topics`);
+  const {
+    data: { topics },
+  } = await axios.get(`${BASE_URL}/topics`);
 
-  return data;
+  return topics;
 };
 
-export const addCommentByArticleId = async (articleId, comment) => {
-  const { data } = await axios.post(
+export const addCommentByArticleId = async (articleId, newComment) => {
+  const {
+    data: { comment },
+  } = await axios.post(
     `${BASE_URL}/articles/${articleId}/comments`,
-    comment
+    newComment
   );
 
-  return data;
+  return comment;
 };
 
 export const getCommentsByArticleId = async (articleId, page, cancelToken) => {
-  const { data } = await axios.get(
-    `${BASE_URL}/articles/${articleId}/comments?p=${page}`,
-    {
-      cancelToken,
-    }
-  );
+  const {
+    data: { comments },
+  } = await axios.get(`${BASE_URL}/articles/${articleId}/comments?p=${page}`, {
+    cancelToken,
+  });
 
-  return data;
+  return comments;
 };
 
 export const updateVotesByArticleId = async (articleId, vote) => {
-  const { data } = await axios.patch(`${BASE_URL}/articles/${articleId}`, {
+  const {
+    data: { article },
+  } = await axios.patch(`${BASE_URL}/articles/${articleId}`, {
     inc_votes: vote,
   });
 
-  return data;
+  return article;
 };
 
 export const updateVotesByCommentId = async (articleId, vote, commentId) => {
-  const { data } = await axios.patch(
+  const {
+    data: { comment },
+  } = await axios.patch(
     `${BASE_URL}/articles/${articleId}/comments/${commentId}`,
     {
       inc_votes: vote,
     }
   );
 
-  return data;
+  return comment;
 };
 
 export const addArticle = async (title, body, username, topic) => {
-  const { data } = await axios.post(`${BASE_URL}/topics/${topic}/articles`, {
+  const {
+    data: { article },
+  } = await axios.post(`${BASE_URL}/topics/${topic}/articles`, {
     title,
     body,
     username,
   });
 
-  return data;
+  return article;
 };
 
 export const deleteArticle = async articleId => {
@@ -93,16 +106,20 @@ export const deleteCommentByArticleId = async (articleId, commentId) => {
 };
 
 export const validateUser = async username => {
-  const { data } = await axios.get(`${BASE_URL}/users/${username}`);
+  const {
+    data: { user },
+  } = await axios.get(`${BASE_URL}/users/${username}`);
 
-  return data;
+  return user;
 };
 
 export const addTopic = async (slug, description) => {
-  const { data } = await axios.post(`${BASE_URL}/topics`, {
+  const {
+    data: { topic },
+  } = await axios.post(`${BASE_URL}/topics`, {
     slug,
     description,
   });
 
-  return data;
+  return topic;
 };

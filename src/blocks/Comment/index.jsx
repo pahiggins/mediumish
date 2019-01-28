@@ -107,7 +107,7 @@ Comment.propTypes = {
     comment_id: PropTypes.number.isRequired,
     votes: PropTypes.number.isRequired,
     created_at: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
+    author: PropTypes.string,
     username: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
   }).isRequired,
