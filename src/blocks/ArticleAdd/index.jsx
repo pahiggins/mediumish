@@ -82,6 +82,7 @@ const TextArea = styled.textarea`
 
 const Buttons = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   margin-top: 2rem;
 `;
@@ -174,7 +175,7 @@ class ArticleAdd extends Component {
                       borderColor={'rgba(0, 0, 0, 0.24)'}
                       borderColorHover={'rgba(0, 0, 0, 0.54)'}
                       color={'rgba(0, 0, 0, 0.54)'}
-                      marginRight={'1.5rem'}
+                      margin={'0.75rem'}
                       onClick={() => this.handleClick('/')}
                     >
                       Cancel
@@ -184,7 +185,7 @@ class ArticleAdd extends Component {
                       borderColor={'rgba(0, 0, 0, 0.24)'}
                       borderColorHover={'rgba(0, 0, 0, 0.54)'}
                       color={'rgba(0, 0, 0, 0.54)'}
-                      marginRight={'1.5rem'}
+                      margin={'0.75rem'}
                       onClick={() => this.handleClick('/new-topic')}
                     >
                       Add Topic
@@ -200,6 +201,7 @@ class ArticleAdd extends Component {
                       disabled={!isEnabled}
                       backgroundColorDisabled={'transparent'}
                       colorHoverDisabled={'rgba(3, 168, 124, 1)'}
+                      margin={'0.75rem'}
                       onClick={e => this.handleSubmit(e, username)}
                     >
                       Publish

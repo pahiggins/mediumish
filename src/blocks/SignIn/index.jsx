@@ -41,6 +41,7 @@ const Input = styled.input`
 
 const Buttons = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   margin-top: 4rem;
 `;
@@ -72,8 +73,12 @@ const WelcomeMessage = styled.div`
   padding: 1.5rem;
   font-size: 1.6rem;
 
-  & > p > span {
-    font-weight: bold;
+  p {
+    text-align: center;
+
+    span {
+      font-weight: bold;
+    }
   }
 `;
 
@@ -149,7 +154,7 @@ class SignIn extends Component {
             borderColor={'rgba(0, 0, 0, 0.24)'}
             borderColorHover={'rgba(0, 0, 0, 0.54)'}
             color={'rgba(0, 0, 0, 0.54)'}
-            marginRight={'1.5rem'}
+            margin={'0.75rem'}
             onClick={this.handleClick}
           >
             Cancel
@@ -165,6 +170,7 @@ class SignIn extends Component {
             disabled={!isEnabled}
             backgroundColorDisabled={'transparent'}
             colorHoverDisabled={'rgba(3, 168, 124, 1)'}
+            margin={'0.75rem'}
             onClick={e => this.signIn(e, toggleUsername)}
           >
             Sign In
@@ -194,7 +200,7 @@ class SignIn extends Component {
             borderColor={'rgba(0, 0, 0, 0.24)'}
             borderColorHover={'rgba(0, 0, 0, 0.54)'}
             color={'rgba(0, 0, 0, 0.54)'}
-            marginRight={'1.5rem'}
+            margin={'0.75rem'}
             onClick={this.handleClick}
           >
             Browse Articles
@@ -207,6 +213,7 @@ class SignIn extends Component {
             colorHover={'#fff'}
             backgroundColorSelect={'rgba(3, 168, 124, 0.8)'}
             borderColorSelect={'rgba(3, 168, 124, 0.8)'}
+            margin={'0.75rem'}
             onClick={() => this.signOut(toggleUsername)}
           >
             Sign Out
@@ -253,7 +260,6 @@ class SignIn extends Component {
         }
       })
       .catch(error => {
-        console.log('Error', error);
         this.setState({ error });
       });
   };
