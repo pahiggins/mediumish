@@ -1,6 +1,6 @@
 # Mediumish
 
-This is a [Medium](https://medium.com/) clone built using [React](https://reactjs.org/), [Node](https://nodejs.org/en/) and [PostgreSQL](https://www.postgresql.org/). The source code for the [Express](https://expressjs.com/) web server is available [here](https://github.com/pahiggins/nc-news-api), with details of the associated API [here](https://nc-news-api-pah.herokuapp.com/api).
+This is a [Medium](https://medium.com/) clone built using [React](https://reactjs.org/), [Node](https://nodejs.org/en/) and [PostgreSQL](https://www.postgresql.org/). The source code for the [Express](https://expressjs.com/) web server is available [here](https://github.com/pahiggins/mediumish-api), with details of the associated API [here](https://nc-news-api-pah.herokuapp.com/api).
 
 - [Visit Mediumish](https://mediumish.netlify.com/)
 
