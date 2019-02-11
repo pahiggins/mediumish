@@ -14,6 +14,8 @@ This is a [Medium](https://medium.com/) clone built using [React](https://reactj
 
 ## Screenshots
 
+![Alt text](/assets/Homepage.png?raw=true 'Homepage')
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See 'Deployment' for notes on how to deploy the project on a live server.
