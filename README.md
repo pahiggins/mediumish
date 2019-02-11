@@ -15,10 +15,12 @@ This is a [Medium](https://medium.com/) clone built using [React](https://reactj
 ## Screenshots
 
 ![Alt text](/assets/Homepage.png?raw=true 'Homepage')
+![Alt text](/assets/ArticleAdd.png?raw=true 'ArticleAdd')
+![Alt text](/assets/Article.png?raw=true 'Article')
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See 'Deployment' for notes on how to deploy the project on a live server.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 In your terminal, run the following commands from the project root:
 
@@ -50,10 +52,6 @@ In your terminal, run the following command from the project root:
 ```
 npm run test
 ```
-
-## Deployment
-
-Additional notes about how to deploy this on a live server.
 
 ## Built With
 
