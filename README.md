@@ -25,8 +25,8 @@ These instructions will get you a copy of the project up and running on your loc
 In your terminal, run the following commands from the project root:
 
 ```
-git clone https://github.com/pahiggins/nc-news.git
-cd nc-news
+git clone https://github.com/pahiggins/mediumish.git
+cd mediumish
 npm install
 ```
 
